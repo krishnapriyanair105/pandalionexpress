@@ -107,25 +107,25 @@
         // --- 1. READ ORDERKEY FROM URL ---
         function getOrderKey() {
             const params = new URLSearchParams(window.location.search);
-            let key = params.get("orderkey");
+            let key = params.get("orderid");
         
             if (key) return key;
         
             // support /orderkey=1234
             const last = window.location.pathname.split("/").pop();
-            if (last.startsWith("orderkey=")) return last.replace("orderkey=", "");
+            if (last.startsWith("orderid=")) return last.replace("orderid=", "");
         
             return null;
         }
         
-        const orderkey = getOrderKey();
-        if (orderkey) {
-            document.body.innerHTML = document.body.innerHTML.replace("#INVALID", "#" + orderkey);
+        const orderid = getOrderKey();
+        if (orderid) {
+            document.body.innerHTML = document.body.innerHTML.replace("#INVALID", "#" + orderid);
         }
         
         // --- 2. FETCH STATUS FROM SUPABASE ---
-        async function getStatus(orderkey) {
-            const url = `${SUPABASE_URL}/rest/v1/pl_orderstatus?orderkey=eq.${orderkey}&select=status`;
+        async function getStatus(orderid) {
+            const url = `${SUPABASE_URL}/rest/v1/pl_orderstatus?orderid=eq.${orderid}&select=status`;
         
             const res = await fetch(url, {
                 headers: {
@@ -172,9 +172,9 @@
         
         // --- MAIN ---
         (async () => {
-            if (!orderkey) return;
+            if (!orderid) return;
         
-            const status = await getStatus(orderkey);
+            const status = await getStatus(orderid);
         
             if (!status) return;
         
@@ -188,4 +188,3 @@
         
 
 </body></html>
-
