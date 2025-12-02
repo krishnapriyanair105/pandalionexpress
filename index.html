@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="Styles.css">
 </head>
 <body style="align-items: center;font-family: &quot;Inter&quot;, &quot;Segoe UI&quot;, Roboto, Arial, sans-serif;" "=""><div class="wrap">
-    <header><div class="logo"><img src="images/pandalion_logo.png" alt="Pandalion Express logo"></div><div class="brand"><h1>Pandalion Express</h1>
+    <header><div class="logo"><img src="file:///C:/Users/harik/Desktop/Tracking/images/pandalion_logo.png" alt="Pandalion Express logo"></div><div class="brand"><h1>Pandalion Express</h1>
     <p>Delivering happiness by tandem — cute, fast &amp; careful</p></div></header>
     <main style="
     padding: 62px;
@@ -49,28 +49,28 @@
             </tr></thead>
 
             <tbody>
-    <tr><td style="padding: 15px;" colspan="6" align="center"><div style="background: #e4dbdb;height:12px;border: blue;border-radius: 20px;width: 96%;" align="left"><div style="background: #ffdc6d;height:12px;border: blue;border-radius: 20px;width: 69%;"></div></div></td></tr>
+    <tr><td style="padding: 15px;" colspan="6" align="center"><div style="background: #e4dbdb;height:12px;border: blue;border-radius: 20px;width: 96%;" align="left"><div id="progressbar" style="background: #ffdc6d;height:12px;border: blue;border-radius: 20px;width: 69%;"></div></div></td></tr>
     <tr align="center" style="
     height: 100px;
 ">
                 <td style="
     padding: 25px;
-"><img src="images/order-received.png" style="height:90px; width:auto;" alt="order received"></td>
+"><img id="img-1" src="file:///C:/Users/harik/Desktop/Tracking/images/order-received.png" style="height:90px; width:auto;" alt="order received"></td>
                 <td style="
     padding: 25px;
-"><img src="images/favicon.png" style="height:90px; width:auto;" alt="order received"></td>
+"><img id="img-2" src="file:///C:/Users/harik/Desktop/Tracking/images/favicon.png" style="height:90px; width:auto;" alt="order received"></td>
                 <td style="
     padding: 25px;
-"><img src="images/favicon.png" style="height:90px; width:auto;" alt="order received"></td>
+"><img id="img-3" src="file:///C:/Users/harik/Desktop/Tracking/images/favicon.png" style="height:90px; width:auto;" alt="order received"></td>
                 <td style="
     padding: 25px;
-"><img src="images/favicon.png" style="height:90px; width:auto;" alt="order received"></td>
+"><img id="img-4" src="file:///C:/Users/harik/Desktop/Tracking/images/favicon.png" style="height:90px; width:auto;" alt="order received"></td>
                 <td style="
     padding: 25px;
-"><img src="images/favicon.png" style="height:90px; width:auto;" alt="order received"></td>
+"><img id="img-5" src="file:///C:/Users/harik/Desktop/Tracking/images/favicon.png" style="height:90px; width:auto;" alt="order received"></td>
                 <td style="
     padding: 25px;
-"><img src="images/favicon.png" style="height:90px; width:auto;" alt="order received"></td>
+"><img id="img-5" src="file:///C:/Users/harik/Desktop/Tracking/images/favicon.png" style="height:90px; width:auto;" alt="order received"></td>
             </tr>
             <tr valign="top" style="
     font-weight: 700;
@@ -139,7 +139,7 @@
         
         // --- 3. UPDATE UI BASED ON STATUS ---
         function updateProgress(status) {
-            const bar = document.querySelector("div[style*='background: red']");
+            const bar = document.querySelector("progressbar");
             if (bar) {
                 const width = 16 * status;
                 bar.style.width = width + "%";
@@ -148,7 +148,7 @@
         
         function updateImages(status) {
             for (let i = 1; i <= 6; i++) {
-                const img = document.getElementById(i.toString());
+                const img = document.getElementById("img-" + i);
                 if (img) {
                     if (i <= status) {
                         img.parentElement.querySelector("img").style.filter = "grayscale(0)";
