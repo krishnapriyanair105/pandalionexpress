@@ -98,10 +98,12 @@
         </tbody></table>
     </main></div>
     <script>
+        document.addEventListener("DOMContentLoaded", () => {
         // ---- SUPABASE CONFIG ----
         const SUPABASE_URL = "https://oeriuexkhrwzblfkozss.supabase.co";
         const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9lcml1ZXhraHJ3emJsZmtvenNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQyNjAwNjQsImV4cCI6MjA3OTgzNjA2NH0.850b53ovl1lk9iXSmgV9PJmprzsCLipIqrw03kQ2cOc";
         
+        console.log("Progressbar element:", document.getElementById("progressbar"));
         // --- 1. READ ORDERKEY FROM URL ---
         function getOrderKey() {
             const params = new URLSearchParams(window.location.search);
@@ -139,23 +141,23 @@
         
         // --- 3. UPDATE UI BASED ON STATUS ---
         function updateProgress(status) {
-            const bar = document.querySelector("progressbar");
-            if (bar) {
-                const width = 16 * status;
-                bar.style.width = width + "%";
-            }
-        }
+    const bar = document.getElementById("progressbar");
+    if (!bar) {
+        console.log("Progressbar not found");
+        return;
+    }
+
+    const width = 16 * status;
+    bar.style.width = width + "%";
+    console.log("Updated width to", width + "%");
+}
         
         function updateImages(status) {
             for (let i = 1; i <= 6; i++) {
                 const img = document.getElementById("img-" + i);
                 if (img) {
-                    if (i <= status) {
-                        img.parentElement.querySelector("img").style.filter = "grayscale(0)";
-                    } else {
-                        img.parentElement.querySelector("img").style.filter = "grayscale(100%)";
+                    img.style.filter = (i <= status) ? "grayscale(0)" : "grayscale(100%)";
                     }
-                }
             }
         }
         
@@ -180,9 +182,9 @@
             updateImages(status);
             updateTextColors(status);
         })();
+    });
         </script>
         
         
 
 </body></html>
-
