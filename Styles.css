@@ -4,6 +4,7 @@
 }
 body{
     background: linear-gradient(180deg, #fff7d6 0%, #fff9e6 60%, #fffef9 100%);
+    font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
 }
 .wrap{
     min-height: 100vh;
