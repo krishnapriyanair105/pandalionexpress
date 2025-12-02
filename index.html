@@ -1,303 +1,187 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Pandalion Express — Tracking</title>
-<link rel="icon" href="images/favicon.png" type="image/png">
-<link rel="shortcut icon" href="images/favicon.png?v=2" type="image/png">
-<style>
-  :root{
-    --p-yellow: #ffd23f;
-    --p-yellow-2: #ffdf7a;
-    --p-black: #111111;
-    --muted: #6b7280;
-    --card-bg: #ffffffcc;
-  }
-
-  html,body{
-    height:100%;
-    margin:0;
-    font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
-    background: linear-gradient(180deg, #fff7d6 0%, #fff9e6 60%, #fffef9 100%);
-    color:var(--p-black);
-  }
-
-  .wrap{
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-  }
-
-  header{
-    display:flex;
-    align-items:center;
-    gap:18px;
-    padding:28px 48px;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-    background: linear-gradient(90deg, rgba(255,255,255,0.6), rgba(255,255,255,0.15));
-    backdrop-filter: blur(6px);
-  }
-  .logo{
-    height:96px;
-    width:96px;
-    border-radius:14px;
-    overflow:hidden;
-    background:var(--p-yellow);
-    display:flex;align-items:center;justify-content:center;
-    box-shadow:0 8px 30px rgba(0,0,0,0.06);
-  }
-  .logo img{ height:84px; width:auto; }
-
-  .brand { display:flex;flex-direction:column; }
-  .brand h1{
-    margin:0;
-    font-size:28px;
-    letter-spacing:-0.5px;
-  }
-  .brand p{
-    margin:4px 0 0 0;
-    font-size:13px;
-    color:var(--muted);
-  }
-
-  main{
-    flex:1;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    padding:40px 28px;
-  }
-
-  .tracker-card{
-    width:100%;
-    max-width:1200px;
-    background:var(--card-bg);
-    border-radius:14px;
-    padding:34px;
-    box-shadow:0 18px 50px rgba(9,10,12,0.06);
-    border: 1px solid rgba(17,17,17,0.04);
-  }
-
-  .info-row{
-    display:flex;
-    justify-content:space-between;
-    flex-wrap:wrap;
-    gap:12px;
-    margin-bottom:26px;
-  }
-
-  .left-info{ display:flex; flex-direction:column; gap:6px; }
-  .order-id{ font-weight:700; font-size:16px; }
-
-  .expected{ font-size:13px; color:var(--muted); }
-
-  .progress-wrap{
-    width:100%;
-    padding:28px 12px 12px 12px;
-  }
-
-  .progress-line{
-    position:relative;
-    height:12px;
-    background: linear-gradient(90deg, rgba(0,0,0,0.05), rgba(0,0,0,0.02));
-    border-radius:999px;
-    margin: 20px 0 34px;
-  }
-
-  .progress-line .fill{
-    position:absolute;
-    height:100%;
-    left:0; top:0;
-    background: linear-gradient(90deg, var(--p-yellow) 0%, var(--p-yellow-2) 100%);
-    border-radius:999px;
-    width:0%;
-    box-shadow:0 6px 18px rgba(255, 210, 63, 0.18);
-  }
-
-  .steps{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-  }
-
-  .step{
-    width:92px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    font-size:13px;
-  }
-
-  .label{
-    margin-top:10px;
-    font-weight:700;
-    color:var(--muted);
-  }
-
-  .step.done .label,
-  .step.active .label{
-    color:var(--p-black);
-  }
-
-</style>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Pandalion Express — Tracking</title>
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="images/favicon.png?v=2" type="image/png">
+    <link rel="stylesheet" href="Styles.css">
 </head>
+<body style="align-items: center;font-family: &quot;Inter&quot;, &quot;Segoe UI&quot;, Roboto, Arial, sans-serif;" "=""><div class="wrap">
+    <header><div class="logo"><img src="images/pandalion_logo.png" alt="Pandalion Express logo"></div><div class="brand"><h1>Pandalion Express</h1>
+    <p>Delivering happiness by tandem — cute, fast &amp; careful</p></div></header>
+    <main style="
+    padding: 62px;
+">
+        <table align="center" style="
+            width: 100%;
+            max-width: 1200px;
+            border-radius: 21px;
+            background: white;
+            border-collapse: collapse;
+            padding: 34px;
+            box-shadow: 0 18px 50px rgba(9, 10, 12, 0.06);
+            border: 1px solid rgba(17, 17, 17, 0.04);
+            ">
+            <thead style="
+"><tr style="
+    height: 108px;
+"><th class="" style="width: 50%;text-align: left;padding: 25px;" colspan="3"><div style="
+    font-weight: 700;
+    font-size: 16px;
+">ORDER <span style="
+    color: #ffd23f;
+">#INVALID</span> </div><div style="
+    font-size: 13px;
+    color: #6b7280;
+    font-weight: 400;
+">Expected Arrival: <span style="
+    font-weight: 700;
+">Today, between 2:00–4:00 PM</span></div></th>
+            <th style="text-align: right;width: 50%;padding: 25px;" colspan="3"><div style="
+    font-weight: 400;
+    font-size: 13px;
+    color: #6b7280;
+">Courier </div><div style="
+    font-weight: 900;
+">
+                Pandalion Express
+</div></th>
+            </tr></thead>
 
-<body>
-<div class="wrap">
+            <tbody>
+    <tr><td style="padding: 15px;" colspan="6" align="center"><div style="background: #e4dbdb;height:12px;border: blue;border-radius: 20px;width: 96%;" align="left"><div style="background: #ffdc6d;height:12px;border: blue;border-radius: 20px;width: 69%;"></div></div></td></tr>
+    <tr align="center" style="
+    height: 100px;
+">
+                <td style="
+    padding: 25px;
+"><img src="images/order-received.png" style="height:90px; width:auto;" alt="order received"></td>
+                <td style="
+    padding: 25px;
+"><img src="images/favicon.png" style="height:90px; width:auto;" alt="order received"></td>
+                <td style="
+    padding: 25px;
+"><img src="images/favicon.png" style="height:90px; width:auto;" alt="order received"></td>
+                <td style="
+    padding: 25px;
+"><img src="images/favicon.png" style="height:90px; width:auto;" alt="order received"></td>
+                <td style="
+    padding: 25px;
+"><img src="images/favicon.png" style="height:90px; width:auto;" alt="order received"></td>
+                <td style="
+    padding: 25px;
+"><img src="images/favicon.png" style="height:90px; width:auto;" alt="order received"></td>
+            </tr>
+            <tr valign="top" style="
+    font-weight: 700;
+    font-size: 13px;
+    text-align: center;
+    color: #7d7272;
+">
+                <td style="
+    padding: 0px 25px 25px 25px;
+" id="1">Order Received</td>
+                <td style="
+    padding: 0px 25px 25px 25px;
+" id="2">Preparing Your Surprise</td>
+                <td style="padding: 0px 25px 25px 25px;" id="3">Packed with Love</td>
+                <td style="
+    padding: 0px 25px 25px 25px;
+" id="4">On the Bamboo Bicycle</td>
+                <td style="
+    padding: 0px 25px 25px 25px;
+" id="5">Almost There</td>
+                <td style="
+    padding: 0px 25px 25px 25px;
+" id="6">Delivered with a Smile</td>
+            </tr>
+        </tbody></table>
+    </main></div>
+    <script>
+        // ---- SUPABASE CONFIG ----
+        const SUPABASE_URL = "https://oeriuexkhrwzblfkozss.supabase.co";
+        const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9lcml1ZXhraHJ3emJsZmtvenNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQyNjAwNjQsImV4cCI6MjA3OTgzNjA2NH0.850b53ovl1lk9iXSmgV9PJmprzsCLipIqrw03kQ2cOc";
+        
+        // --- 1. READ ORDERKEY FROM URL ---
+        function getOrderKey() {
+            const params = new URLSearchParams(window.location.search);
+            let key = params.get("orderkey");
+        
+            if (key) return key;
+        
+            // support /orderkey=1234
+            const last = window.location.pathname.split("/").pop();
+            if (last.startsWith("orderkey=")) return last.replace("orderkey=", "");
+        
+            return null;
+        }
+        
+        const orderkey = getOrderKey();
+        if (orderkey) {
+            document.body.innerHTML = document.body.innerHTML.replace("#INVALID", "#" + orderkey);
+        }
+        
+        // --- 2. FETCH STATUS FROM SUPABASE ---
+        async function getStatus(orderkey) {
+            const url = `${SUPABASE_URL}/rest/v1/pl_orderstatus?orderkey=eq.${orderkey}&select=status`;
+        
+            const res = await fetch(url, {
+                headers: {
+                    apikey: SUPABASE_ANON,
+                    Authorization: `Bearer ${SUPABASE_ANON}`
+                }
+            });
+        
+            const data = await res.json();
+            if (data.length === 0) return null;
+            return parseInt(data[0].status);
+        }
+        
+        // --- 3. UPDATE UI BASED ON STATUS ---
+        function updateProgress(status) {
+            const bar = document.querySelector("div[style*='background: red']");
+            if (bar) {
+                const width = 16 * status;
+                bar.style.width = width + "%";
+            }
+        }
+        
+        function updateImages(status) {
+            for (let i = 1; i <= 6; i++) {
+                const img = document.getElementById(i.toString());
+                if (img) {
+                    if (i <= status) {
+                        img.parentElement.querySelector("img").style.filter = "grayscale(0)";
+                    } else {
+                        img.parentElement.querySelector("img").style.filter = "grayscale(100%)";
+                    }
+                }
+            }
+        }
+        
+        function updateTextColors(status) {
+            for (let i = 1; i <= 6; i++) {
+                const text = document.getElementById(i.toString());
+                if (text) {
+                    text.style.color = (i <= status) ? "black" : "#7d7272";
+                }
+            }
+        }
+        
+        // --- MAIN ---
+        (async () => {
+            if (!orderkey) return;
+        
+            const status = await getStatus(orderkey);
+        
+            if (!status) return;
+        
+            updateProgress(status);
+            updateImages(status);
+            updateTextColors(status);
+        })();
+        </script>
+        
+        
 
-<header>
-  <div class="logo">
-    <img src="images/pandalion_logo.png" alt="Pandalion Express logo">
-  </div>
-  <div class="brand">
-    <h1>Pandalion Express</h1>
-    <p>Delivering happiness by tandem — cute, fast & careful</p>
-  </div>
-</header>
-
-<main>
-<section class="tracker-card">
-  
-  <div class="info-row">
-    <div class="left-info">
-      <div class="order-id">ORDER <span style="color:var(--p-yellow);">#----</span></div>
-      <div class="expected">Expected Arrival: <strong>Today, between 2:00–4:00 PM</strong></div>
-    </div>
-
-    <div class="right-info" style="text-align:right;">
-      <div style="font-size:13px;color:var(--muted)">Courier</div>
-      <div style="font-weight:800;">Pandalion Express</div>
-    </div>
-  </div>
-
-  <!-- progress bar -->
-  <div class="progress-wrap">
-    <div class="progress-line">
-      <div class="fill" id="fill"></div>
-    </div>
-
-    <!-- steps -->
-    <div class="steps" id="steps">
-
-      <div class="step" data-k="1">
-        <img src="images/order-received.png" style="height:90px; width:auto;" alt="order received">
-        <div class="label">Order Received</div>
-      </div>
-
-      <div class="step" data-k="2">
-        <div class="circ">2</div>
-        <div class="label">Preparing Your Surprise</div>
-      </div>
-
-      <div class="step" data-k="3">
-        <div class="circ">3</div>
-        <div class="label">Packed with Love</div>
-      </div>
-
-      <div class="step" data-k="4">
-        <div class="circ">4</div>
-        <div class="label">On the Bamboo Bicycle</div>
-      </div>
-
-      <div class="step" data-k="5">
-        <div class="circ">5</div>
-        <div class="label">Almost There</div>
-      </div>
-
-      <div class="step" data-k="6">
-        <div class="circ">6</div>
-        <div class="label">Delivered with a Smile</div>
-      </div>
-
-    </div>
-  </div>
-
-</section>
-</main>
-</div>
-
-<!-- Supabase SDK -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-
-// ------------------------------
-// Supabase init
-// ------------------------------
-const supabaseClient = supabase.createClient(
-  "https://oeriuexkhrwzblfkozss.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9lcml1ZXhraHJ3emJsZmtvenNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQyNjAwNjQsImV4cCI6MjA3OTgzNjA2NH0.850b53ovl1lk9iXSmgV9PJmprzsCLipIqrw03kQ2cOc"
-);
-
-// ------------------------------
-// Read order from URL
-// ------------------------------
-const params = new URLSearchParams(window.location.search);
-const orderKey = params.get("order");
-
-const orderEl = document.querySelector(".order-id span");
-
-if (!orderKey) {
-  orderEl.textContent = "#INVALID";
-} else {
-  orderEl.textContent = "#" + orderKey;
-  loadStatus(orderKey);
-}
-
-// ------------------------------
-// Load Status from Supabase
-// ------------------------------
-async function loadStatus(orderKey) {
-
-  const { data, error } = await supabaseClient
-    .from("pl_orderstatus")
-    .select("status")
-    .eq("orderkey", orderKey)
-    .maybeSingle();
-
-  if (!data || error) {
-    orderEl.textContent = "#NOTFOUND";
-    return;
-  }
-
-  const status = Number(data.status); // 1–6
-
-  updateProgress(status);
-}
-
-// ------------------------------
-// Update UI according to status
-// ------------------------------
-function updateProgress(status){
-  
-  const percent = status * 16.7;
-  const fill = document.getElementById("fill");
-  fill.style.width = percent + "%";
-
-  const steps = document.querySelectorAll(".step");
-
-  steps.forEach((step, idx) => {
-    step.classList.remove("done", "active");
-    const circ = step.querySelector(".circ");
-
-    if (idx + 1 < status) {
-      step.classList.add("done");
-      circ.textContent = "✓";
-    }
-    else if (idx + 1 === status) {
-      step.classList.add("active");
-      circ.textContent = "✓";
-    }
-    else {
-      circ.textContent = idx + 1;
-    }
-  });
-
-}
-
-</script>
-
-</body>
-</html>
+</body></html>
