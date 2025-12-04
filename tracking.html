@@ -1,0 +1,190 @@
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Pandalion Express — Tracking</title>
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="images/favicon.png?v=2" type="image/png">
+    <link rel="stylesheet" href="Stylesheet.css">
+</head>
+<body style="align-items: center;"><div class="wrap">
+    <header><div class="logo"><img src="images/pandalion_logo.png" alt="Pandalion Express logo"></div><div class="brand"><h1>Pandalion Express</h1>
+    <p>Delivering happiness by tandem — cute, fast &amp; careful</p></div></header>
+    <main style="
+    padding: 62px;
+">
+        <table align="center" style="
+            width: 100%;
+            max-width: 1200px;
+            border-radius: 21px;
+            background: white;
+            border-collapse: collapse;
+            padding: 34px;
+            box-shadow: 0 18px 50px rgba(9, 10, 12, 0.06);
+            border: 1px solid rgba(17, 17, 17, 0.04);
+            ">
+            <thead style="
+"><tr style="
+    height: 108px;
+"><th class="" style="width: 50%;text-align: left;padding: 25px;" colspan="3"><div style="
+    font-weight: 700;
+    font-size: 16px;
+">ORDER <span style="
+    color: #ffd23f;
+">#INVALID</span> </div><div style="
+    font-size: 13px;
+    color: #6b7280;
+    font-weight: 400;
+">Expected Arrival: <span style="
+    font-weight: 700;
+">Today, between 2:00–4:00 PM</span></div></th>
+            <th style="text-align: right;width: 50%;padding: 25px;" colspan="3"><div style="
+    font-weight: 400;
+    font-size: 13px;
+    color: #6b7280;
+">Courier </div><div style="
+    font-weight: 900;
+">
+                Pandalion Express
+</div></th>
+            </tr></thead>
+
+            <tbody>
+    <tr><td style="padding: 15px;" colspan="6" align="center"><div style="background: #e4dbdb;height:12px;border: blue;border-radius: 20px;width: 96%;" align="left"><div id="progressbar" style="background: #ffdc6d;height:12px;border: blue;border-radius: 20px;width: 0%;"></div></div></td></tr>
+    <tr align="center" style="
+    height: 100px;
+">
+                <td style="
+    padding: 25px;
+"><img id="img-1" src="images/order-received.gif" style="height:90px; width:auto;" alt="order received"></td>
+                <td style="
+    padding: 25px;
+"><img id="img-2" src="images/favicon.png" style="height:90px; width:auto;" alt="order received"></td>
+                <td style="
+    padding: 25px;
+"><img id="img-3" src="images/favicon.png" style="height:90px; width:auto;" alt="order received"></td>
+                <td style="
+    padding: 25px;
+"><img id="img-4" src="images/favicon.png" style="height:90px; width:auto;" alt="order received"></td>
+                <td style="
+    padding: 25px;
+"><img id="img-5" src="images/favicon.png" style="height:90px; width:auto;" alt="order received"></td>
+                <td style="
+    padding: 25px;
+"><img id="img-6" src="images/favicon.png" style="height:90px; width:auto;" alt="order received"></td>
+            </tr>
+            <tr valign="top" style="
+    font-weight: 700;
+    font-size: 13px;
+    text-align: center;
+    color: #7d7272;
+">
+                <td style="
+    padding: 0px 25px 25px 25px;
+" id="1">Order Received</td>
+                <td style="
+    padding: 0px 25px 25px 25px;
+" id="2">Preparing Your Surprise</td>
+                <td style="padding: 0px 25px 25px 25px;" id="3">Packed with Love</td>
+                <td style="
+    padding: 0px 25px 25px 25px;
+" id="4">On the Bamboo Bicycle</td>
+                <td style="
+    padding: 0px 25px 25px 25px;
+" id="5">Almost There</td>
+                <td style="
+    padding: 0px 25px 25px 25px;
+" id="6">Delivered with a Smile</td>
+            </tr>
+        </tbody></table>
+    </main></div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+        // ---- SUPABASE CONFIG ----
+        const SUPABASE_URL = "https://oeriuexkhrwzblfkozss.supabase.co";
+        const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9lcml1ZXhraHJ3emJsZmtvenNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQyNjAwNjQsImV4cCI6MjA3OTgzNjA2NH0.850b53ovl1lk9iXSmgV9PJmprzsCLipIqrw03kQ2cOc";
+        
+        console.log("Progressbar element:", document.getElementById("progressbar"));
+        // --- 1. READ ORDERKEY FROM URL ---
+        function getOrderKey() {
+            const params = new URLSearchParams(window.location.search);
+            let key = params.get("orderid");
+        
+            if (key) return key;
+        
+            // support /orderkey=1234
+            const last = window.location.pathname.split("/").pop();
+            if (last.startsWith("orderid=")) return last.replace("orderid=", "");
+        
+            return null;
+        }
+        
+        const orderid = getOrderKey();
+        if (orderid) {
+            document.body.innerHTML = document.body.innerHTML.replace("#INVALID", "#" + orderid);
+        }
+        
+        // --- 2. FETCH STATUS FROM SUPABASE ---
+        async function getStatus(orderid) {
+            const url = `${SUPABASE_URL}/rest/v1/pl_orderstatus?orderid=eq.${orderid}&select=status`;
+        
+            const res = await fetch(url, {
+                headers: {
+                    apikey: SUPABASE_ANON,
+                    Authorization: `Bearer ${SUPABASE_ANON}`
+                }
+            });
+        
+            const data = await res.json();
+            if (data.length === 0) return null;
+            return parseInt(data[0].status);
+        }
+        
+        // --- 3. UPDATE UI BASED ON STATUS ---
+        function updateProgress(status) {
+    const bar = document.getElementById("progressbar");
+    if (!bar) {
+        console.log("Progressbar not found");
+        return;
+    }
+
+    const width = 16 * status;
+    bar.style.width = width + "%";
+    console.log("Updated width to", width + "%");
+}
+        
+        function updateImages(status) {
+            for (let i = 1; i <= 6; i++) {
+                const img = document.getElementById("img-" + i);
+                if (img) {
+                    img.style.filter = (i <= status) ? "grayscale(0)" : "grayscale(100%)";
+                    }
+            }
+        }
+        
+        function updateTextColors(status) {
+            for (let i = 1; i <= 6; i++) {
+                const text = document.getElementById(i.toString());
+                if (text) {
+                    text.style.color = (i <= status) ? "black" : "#7d7272";
+                }
+            }
+        }
+        
+        // --- MAIN ---
+        (async () => {
+            if (!orderid) return;
+        
+            const status = await getStatus(orderid);
+        
+            if (!status) return;
+        
+            updateProgress(status);
+            updateImages(status);
+            updateTextColors(status);
+        })();
+    });
+        </script>
+        
+        
+
+</body></html>
