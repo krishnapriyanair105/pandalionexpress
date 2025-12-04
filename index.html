@@ -4,187 +4,508 @@
     <title>Pandalion Express — Tracking</title>
     <link rel="icon" href="images/favicon.png" type="image/png">
     <link rel="shortcut icon" href="images/favicon.png?v=2" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&amp;family=Quicksand:wght@300;400;500;600&amp;family=Nunito:wght@300;400;600&amp;family=Fredoka:wght@400;500;600&amp;family=Baloo+2:wght@400;500;600&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="Styles.css">
 </head>
-<body style="align-items: center;"><div class="wrap">
+<body style="align-items: center; background: url('images/background.png');"><div class="wrap">
     <header><div class="logo"><img src="images/pandalion_logo.png" alt="Pandalion Express logo"></div><div class="brand"><h1>Pandalion Express</h1>
     <p>Delivering happiness by tandem — cute, fast &amp; careful</p></div></header>
     <main style="
     padding: 62px;
 ">
-        <table align="center" style="
+    <div class="fadeContainer" id="homeTable" align="center">
+        <div align="center">
+<a href="#" onclick="showLogin()"><img class="img1" src="C:/Users/harik/Desktop/Tracking/images/login.png" alt="Pandalion Express logo" style="width: 100%; height: auto;"></a>
+        </div>
+<div align="center">
+<a href="#" onclick="signUp()"><img class="img2" src="C:/Users/harik/Desktop/Tracking/images/pandalion_signup.png" alt="Pandalion Express logo" style="width: 100%; height: auto;"></a>
+</div><div align="center">
+<a href="#" onclick="showTracking()"><img class="img3" src="C:/Users/harik/Desktop/Tracking/images/trackyourorder.png" alt="Pandalion Express logo" style="width: 100%; height: auto;"></a>
+</div></div>
+<table class="fadeContainer" id="logintab" align="center" style="
             width: 100%;
             max-width: 1200px;
             border-radius: 21px;
-            background: white;
-            border-collapse: collapse;
             padding: 34px;
-            box-shadow: 0 18px 50px rgba(9, 10, 12, 0.06);
-            border: 1px solid rgba(17, 17, 17, 0.04);
+            border: 2px solid #ffffff;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            min-height: 500px;
+            height: auto;
+            border-collapse: separate;
+            background: #ffffff;
+            display: none;
             ">
-            <thead style="
-"><tr style="
-    height: 108px;
-"><th class="" style="width: 50%;text-align: left;padding: 25px;" colspan="3"><div style="
-    font-weight: 700;
-    font-size: 16px;
-">ORDER <span style="
-    color: #ffd23f;
-">#INVALID</span> </div><div style="
-    font-size: 13px;
-    color: #6b7280;
-    font-weight: 400;
-">Expected Arrival: <span style="
-    font-weight: 700;
-">Today, between 2:00–4:00 PM</span></div></th>
-            <th style="text-align: right;width: 50%;padding: 25px;" colspan="3"><div style="
-    font-weight: 400;
-    font-size: 13px;
-    color: #6b7280;
-">Courier </div><div style="
-    font-weight: 900;
-">
-                Pandalion Express
-</div></th>
-            </tr></thead>
+            <thead>
+</thead>
 
-            <tbody>
-    <tr><td style="padding: 15px;" colspan="6" align="center"><div style="background: #e4dbdb;height:12px;border: blue;border-radius: 20px;width: 96%;" align="left"><div id="progressbar" style="background: #ffdc6d;height:12px;border: blue;border-radius: 20px;width: 0%;"></div></div></td></tr>
-    <tr align="center" style="
+            <tbody style="font-family: 'Fredoka', sans-serif;">
+                <tr style="
+    border-top: 2px solid #ecdfdf;"><td><div align="center" style="padding: 15px; color: #ffae00; -webkit-text-stroke: 1px #231700; font-size: 33px; font-weight: 900;">
+    Hello BambooCub! Ready to enter the forest?
+</div></td>
+                    <td style="
+    min-height: 300px;
     height: 100px;
-">
-                <td style="
-    padding: 25px;
-"><img id="img-1" src="images/order-received.gif" style="height:90px; width:auto;" alt="order received"></td>
-                <td style="
-    padding: 25px;
-"><img id="img-2" src="images/favicon.png" style="height:90px; width:auto;" alt="order received"></td>
-                <td style="
-    padding: 25px;
-"><img id="img-3" src="images/favicon.png" style="height:90px; width:auto;" alt="order received"></td>
-                <td style="
-    padding: 25px;
-"><img id="img-4" src="images/favicon.png" style="height:90px; width:auto;" alt="order received"></td>
-                <td style="
-    padding: 25px;
-"><img id="img-5" src="images/favicon.png" style="height:90px; width:auto;" alt="order received"></td>
-                <td style="
-    padding: 25px;
-"><img id="img-6" src="images/favicon.png" style="height:90px; width:auto;" alt="order received"></td>
-            </tr>
-            <tr valign="top" style="
-    font-weight: 700;
-    font-size: 13px;
-    text-align: center;
-    color: #7d7272;
-">
-                <td style="
-    padding: 0px 25px 25px 25px;
-" id="1">Order Received</td>
-                <td style="
-    padding: 0px 25px 25px 25px;
-" id="2">Preparing Your Surprise</td>
-                <td style="padding: 0px 25px 25px 25px;" id="3">Packed with Love</td>
-                <td style="
-    padding: 0px 25px 25px 25px;
-" id="4">On the Bamboo Bicycle</td>
-                <td style="
-    padding: 0px 25px 25px 25px;
-" id="5">Almost There</td>
-                <td style="
-    padding: 0px 25px 25px 25px;
-" id="6">Delivered with a Smile</td>
-            </tr>
-        </tbody></table>
-    </main></div>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-        // ---- SUPABASE CONFIG ----
-        const SUPABASE_URL = "https://oeriuexkhrwzblfkozss.supabase.co";
-        const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9lcml1ZXhraHJ3emJsZmtvenNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQyNjAwNjQsImV4cCI6MjA3OTgzNjA2NH0.850b53ovl1lk9iXSmgV9PJmprzsCLipIqrw03kQ2cOc";
+    border: 2px solid #ffd264;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    width: 50%;
+    background: url('images/panda_lion_forestgif.gif');
+    background-size: cover;
+    background-position: center;
+" align="center">
+
+<div>
+    <input type="text" id="username" placeholder="Username" name="username" style="margin: 10px;height: 45px;width: 300px;border: 3px solid #838383;border-radius: 28px;">
+    <input type="password" id="password" placeholder="Password" name="password" style="margin: 10px;height: 45px;width: 300px;border: 3px solid #838383;border-radius: 28px;">
+</div>
+<div>
+    <button type="button" onclick="logIn()" style="height: 50px;
+    width: 100px;
+    background: #ffd264;
+    border-radius: 25px;
+    border-color: #fff0f0;">Join</button>
+</div>
+</td>
+                    
+                </tr>
+                
+            </tbody>
+    
         
-        console.log("Progressbar element:", document.getElementById("progressbar"));
-        // --- 1. READ ORDERKEY FROM URL ---
-        function getOrderKey() {
-            const params = new URLSearchParams(window.location.search);
-            let key = params.get("orderid");
+
+
+</table>
+<table class="fadeContainer" id="trackingtab" align="center" style="
+            width: 100%;
+            max-width: 1200px;
+            border-radius: 21px;
+            padding: 34px;
+            border: 2px solid #ffffff;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            min-height: 500px;
+            height: auto;
+            border-collapse: separate;
+            background: #ffffff;
+            display: none;
+            ">
+            <thead>
+</thead>
+
+            <tbody style="font-family: 'Fredoka', sans-serif;">
+                
+                <tr><td><div align="center" style="padding: 15px; color: #ffae00; -webkit-text-stroke: 1px #231700; font-size: 33px; font-weight: 900;">Hey BambooCub — let’s find your package in the bamboo grove!
+</div></td>
+    <td style="
+                    width: 50%;
+                    background: url('images/pandalionontandem.gif');
+                    background-size: cover;
+                    background-position: center;
+                    border: 2px solid #ffd264;
+                    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+                " align="center">
+                                        <div>
+                                            <br>
+                                            <input type="number" id="orderid" placeholder="Enter the Order ID:" name="orderkey" style="margin: 10px;height: 45px;width: 300px;border: 3px solid #838383;border-radius: 28px;">
+                                        </div>
+                                        <div>
+                                            <button type="button" onclick="checkOrderId()">GO!</button>
+                                        </div>
+                                    </td></tr>
+            </tbody>
+    
         
-            if (key) return key;
-        
-            // support /orderkey=1234
-            const last = window.location.pathname.split("/").pop();
-            if (last.startsWith("orderid=")) return last.replace("orderid=", "");
-        
-            return null;
-        }
-        
-        const orderid = getOrderKey();
-        if (orderid) {
-            document.body.innerHTML = document.body.innerHTML.replace("#INVALID", "#" + orderid);
-        }
-        
-        // --- 2. FETCH STATUS FROM SUPABASE ---
-        async function getStatus(orderid) {
-            const url = `${SUPABASE_URL}/rest/v1/pl_orderstatus?orderid=eq.${orderid}&select=status`;
-        
-            const res = await fetch(url, {
-                headers: {
-                    apikey: SUPABASE_ANON,
-                    Authorization: `Bearer ${SUPABASE_ANON}`
-                }
-            });
-        
-            const data = await res.json();
-            if (data.length === 0) return null;
-            return parseInt(data[0].status);
-        }
-        
-        // --- 3. UPDATE UI BASED ON STATUS ---
-        function updateProgress(status) {
-    const bar = document.getElementById("progressbar");
-    if (!bar) {
-        console.log("Progressbar not found");
+
+
+</table>
+</main>
+</div>
+
+<!-- POPUP -->
+<div id="invalidBox">
+    <h3 id="invalidhead"></h3>
+    <p id="getMessage"></p>
+    <button id="clickButton" style="height: 40px; width: 140px; background: #ffd264; border-radius: 20px;">
+    </button>
+  </div>
+
+  <!--Sign-up popup-->
+  <div id="signupbox">
+    <button id="closeSignup" onclick="closeSignup()">✖</button>
+    <div class="signup-inner">
+    <h3>Hurry! Join the Forest, Be a BambooCub!</h3>
+    <div>
+        <input type="text" id="givenname" placeholder="First Name" name="givenname" style="margin: 10px;height: 45px;width: 300px;border: 3px solid #838383;border-radius: 28px;">
+        <input type="text" id="surname" placeholder="Last Name" name="surname" style="margin: 10px;height: 45px;width: 300px;border: 3px solid #838383;border-radius: 28px;">
+        <input type="text" id="email" placeholder="Email" name="email" style="margin: 10px;height: 45px;width: 300px;border: 3px solid #838383;border-radius: 28px;">
+        <input type="number" id="mobilenumber" placeholder="Mobile Number" name="mobilenumber" style="margin: 10px;height: 45px;width: 300px;border: 3px solid #838383;border-radius: 28px;">
+        <input id="birthday" placeholder="Birthday" name="birthday" style="margin: 10px;height: 45px;width: 300px;border: 3px solid #838383;border-radius: 28px;">
+        <input list="statuslist" id="maritalstatus" placeholder="Married?" name="maritalstatus" style="margin: 10px;height: 45px;width: 300px;border: 3px solid #838383;border-radius: 28px;">
+        <datalist id="statuslist">
+            <option value="Single">
+            </option><option value="Married">
+            </option><option value="Divorced">
+            </option><option value="I prefer not to say">
+        </option></datalist>
+        <input type="text" id="loginname" placeholder="Choose a username" name="loginname" style="margin: 10px;height: 45px;width: 300px;border: 3px solid #838383;border-radius: 28px;">
+        <input type="password" id="loginpassword" placeholder="Choose a password" name="loginpassword" style="margin: 10px;height: 45px;width: 300px;border: 3px solid #838383;border-radius: 28px;">
+        <input type="text" id="address" placeholder="Address" name="address" style="margin: 10px;height: 45px;width: 300px;border: 3px solid #838383;border-radius: 28px;">
+        <input type="text" id="city" placeholder="City" name="city" style="margin: 10px;height: 45px;width: 300px;border: 3px solid #838383;border-radius: 28px;">
+        <input type="text" id="state" placeholder="State" name="state" style="margin: 10px;height: 45px;width: 300px;border: 3px solid #838383;border-radius: 28px;">
+        <input type="text" id="country" placeholder="Country" name="country" style="margin: 10px;height: 45px;width: 300px;border: 3px solid #838383;border-radius: 28px;">
+    </div>
+</div>
+<button id="insertlogin" onclick="signupInsert()">Sign UP</button>
+</div>
+
+<!--Javascript-->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+    // 🔴 REPLACE these with your Supabase credentials
+    const SUPABASE_URL = "https://oeriuexkhrwzblfkozss.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9lcml1ZXhraHJ3emJsZmtvenNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQyNjAwNjQsImV4cCI6MjA3OTgzNjA2NH0.850b53ovl1lk9iXSmgV9PJmprzsCLipIqrw03kQ2cOc";
+  
+    const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  
+    async function checkOrderId() {
+      const id = document.getElementById("orderid").value;
+      const errormessage="";
+  
+      if (!id) {
+        alert("Please enter an Order ID.");
+        return;
+      }
+  
+      // 🔍 Check if orderid exists
+      const { data, error } = await sb
+        .from("pl_orderstatus")
+        .select("orderid, orderkey")
+        .eq("orderid", id)
+        .maybeSingle();
+  
+      if (!data) {
+        // ❌ Not found → show popup
+        document.getElementById("invalidhead") = "❌ Invalid Order ID";
+        document.getElementById("getmessage") = "No order found for this ID.";
+        document.getElementById("clicButton").innerText = "Try Again"
+        document.getElementById("clickButton").onclick = tryAgain();
+        document.getElementById("invalidBox").style.display = "block";
+        return;
+      }
+  
+      // ✔ Found → redirect using orderkey
+      const orderid = data.orderid;
+      window.open(`https://www.pandalion.in/?orderid=${orderid}`, "_blank");
+    }
+
+    async function signUp() {
+        document.getElementById("signupbox").style.display = "block";
         return;
     }
 
-    const width = 16 * status;
-    bar.style.width = width + "%";
-    console.log("Updated width to", width + "%");
+    async function logIn() {
+        // 🔍 Check if orderid exists
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+        if (!username || !password) {
+            alert("Please fill all fields");
+            return;
+        } else{
+            const { data: user, error } = await sb
+            .from("pl_login")
+            .select("username, password")
+            .eq("username", username)
+            .maybeSingle();
+
+            if (!user) {
+                 // ❌ Not found → show popup
+                document.getElementById("invalidhead").innerText = "❌ Oh Ohh!!!"
+                errormessage = "Seems like you're not a BambooCub yet."
+                document.getElementById("getMessage").innerText = errormessage;
+                document.getElementById("clicButton").innerText = "Try Again"
+                document.getElementById("clickButton").onclick = tryAgain();
+                document.getElementById("invalidBox").style.display = "block";
+                return;
+            }
+            else {
+                // document.getElementById("invalidhead").innerText = "Yayyy!!!!"
+                // document.getElementById("getMessage").innerText = "Welcome back to your cozy bamboo den."
+                // document.getElementById("clickButton").innerText = "Close"
+                // document.getElementById("clickButton").onclick = () => document.getElementById("invalidBox").style.display="none";
+                // document.getElementById("invalidBox").style.display = "block";
+                localStorage.setItem("login_username", username);
+                localStorage.setItem("login_password", password);
+
+                window.location.href = "https://www.pandalion.in/welcome.html";
+            }
+        }
+        return;
+    }
+  
+    function tryAgain() {
+      document.getElementById("invalidBox").style.display = "none";
+      document.getElementById("orderid").value = "";
+    }
+    function showHome() {
+    const home = document.getElementById("homeTable");
+    const login = document.getElementById("logintab");
+    const tracking = document.getElementById("trackingtab");
+
+    // Hide others
+    login.style.display = "none";
+    if (tracking) tracking.style.display = "none";
+
+    // Show home
+    home.style.display = "table";
+    home.classList.remove("hidden");
 }
-        
-        function updateImages(status) {
-            for (let i = 1; i <= 6; i++) {
-                const img = document.getElementById("img-" + i);
-                if (img) {
-                    img.style.filter = (i <= status) ? "grayscale(0)" : "grayscale(100%)";
-                    }
-            }
+
+    function showLogin() {
+    const home = document.getElementById("homeTable");
+    const login = document.getElementById("logintab");
+
+    home.classList.add("hidden");
+
+    setTimeout(() => {
+        home.style.display = "none";
+        login.style.display = "table";
+        login.classList.add("hidden");
+
+        requestAnimationFrame(() => {
+            login.classList.remove("hidden");
+        });
+
+        // Add to browser history
+        history.pushState({screen: "login"}, "");
+    }, 600);
+    }
+    function showTracking() {
+    const home = document.getElementById("homeTable");
+    const tracking = document.getElementById("trackingtab");
+
+    // Fade OUT home
+    home.classList.add("hidden");
+
+    setTimeout(() => {
+        // Hide old screen
+        home.style.display = "none";
+
+        // Prepare tracking screen
+        tracking.style.display = "table";
+        tracking.classList.add("hidden");
+
+        // Fade IN tracking
+        requestAnimationFrame(() => {
+            tracking.classList.remove("hidden");
+        });
+
+        // Add to browser history
+        history.pushState({screen: "tracking"}, "");
+
+    }, 600); // matches CSS fade duration
+}
+
+    const signupBox = document.getElementById("signupbox");
+const signupInner = document.querySelector(".signup-inner");
+
+const observer = new MutationObserver(() => {
+    if (signupBox.style.display === "block") {
+        signupInner.classList.add("fadeIn");
+    }
+});
+observer.observe(signupBox, { attributes: true, attributeFilter: ["style"] });
+
+function closeSignup() {
+    const box = document.getElementById("signupbox");
+    const inner = document.querySelector(".signup-inner");
+
+    // fade out the popup
+    inner.style.opacity = 0;
+    inner.style.transform = "scale(0.9)";
+
+    setTimeout(() => {
+        box.style.display = "none";
+
+        // reset for next opening
+        inner.style.opacity = 0;
+        inner.style.transform = "scale(0.9)";
+        inner.classList.remove("fadeIn");
+    }, 300);
+}
+
+async function signupInsert() {
+
+// Required fields
+const requiredFields = [
+    "givenname",
+    "surname",
+    "email",
+    "mobilenumber",
+    "loginname",
+    "loginpassword"
+];
+
+let allValid = true;
+
+// Reset previous errors
+requiredFields.forEach(id => {
+    document.getElementById(id).classList.remove("input-error");
+});
+
+// Validate required fields
+requiredFields.forEach(id => {
+    const input = document.getElementById(id);
+    if (!input.value.trim()) {
+        input.classList.add("input-error");
+        allValid = false;
+    }
+});
+
+if (!allValid) return;
+
+
+
+/* ------------------------------------------------------------
+   1️⃣ USERNAME UNIQUE CHECK (CASE-SENSITIVE)
+   ------------------------------------------------------------ */
+const username = document.getElementById("loginname").value.trim();
+const usernameField = document.getElementById("loginname");
+
+usernameField.classList.remove("input-error", "input-ok");
+
+if (!username) {
+    usernameField.classList.add("input-error");
+    return;
+}
+
+// Supabase case-sensitive filter
+let { data: existingUser } = await sb
+    .from("pl_login")
+    .select("username")
+    .eq("username", username);
+
+if (existingUser.length > 0) {
+    usernameField.classList.add("input-error");
+    return;
+} else {
+    usernameField.classList.add("input-ok");
+}
+
+
+
+/* ------------------------------------------------------------
+   2️⃣ PASSWORD STRENGTH CHECK
+   ------------------------------------------------------------ */
+const password = document.getElementById("loginpassword").value.trim();
+const passwordField = document.getElementById("loginpassword");
+
+passwordField.classList.remove("input-error", "input-ok");
+
+const passwordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#!$%^&*()_+\-={}[\]|:;"'<>,.?/]).{8,15}$/;
+
+if (!passwordRegex.test(password)) {
+    passwordField.classList.add("input-error");
+    return;
+} else {
+    passwordField.classList.add("input-ok");
+}
+
+
+
+/* ------------------------------------------------------------
+   OPTIONAL FIELDS
+   ------------------------------------------------------------ */
+const birthdayRaw = document.getElementById("birthday").value.trim();
+const maritalstatus = document.getElementById("maritalstatus").value.trim();
+const address = document.getElementById("address").value.trim();
+const city = document.getElementById("city").value.trim();
+const state = document.getElementById("state").value.trim();
+const country = document.getElementById("country").value.trim();
+
+// Birthday conversion MM/DD/YYYY → YYYY-MM-DD
+let birthdaySQL = null;
+if (birthdayRaw) {
+    const p = birthdayRaw.split("/");
+    birthdaySQL = `${p[2]}-${p[0]}-${p[1]}`;
+}
+
+
+
+/* ------------------------------------------------------------
+   INSERT INTO DATABASE
+   ------------------------------------------------------------ */
+const row = {
+    username: username,
+    password: password,
+    givenname: givenname.value,
+    surname: surname.value,
+    emailaddress: email.value,
+    mobilephone: mobilenumber.value,
+    address: address || null,
+    city: city || null,
+    state: state || null,
+    country: country || null,
+    birthdate: birthdaySQL,
+    maritalstatus: maritalstatus || null
+};
+
+const { data, error } = await sb.from("pl_login").insert(row);
+
+if (!error) {
+    closeSignup();
+}
+}
+
+
+
+
+window.onpopstate = function (event) {
+    showHome();
+};
+
+// Remove red border when typing in required fields
+["givenname", "surname", "email", "mobilenumber", "loginname", "loginpassword"].forEach(id => {
+    const input = document.getElementById(id);
+    input.addEventListener("input", () => {
+        if (input.value.trim()) {
+            input.classList.remove("input-error");
         }
-        
-        function updateTextColors(status) {
-            for (let i = 1; i <= 6; i++) {
-                const text = document.getElementById(i.toString());
-                if (text) {
-                    text.style.color = (i <= status) ? "black" : "#7d7272";
-                }
-            }
-        }
-        
-        // --- MAIN ---
-        (async () => {
-            if (!orderid) return;
-        
-            const status = await getStatus(orderid);
-        
-            if (!status) return;
-        
-            updateProgress(status);
-            updateImages(status);
-            updateTextColors(status);
-        })();
     });
-        </script>
-        
-        
+});
+
+// Live password strength check
+document.getElementById("loginpassword").addEventListener("input", () => {
+    const pwd = document.getElementById("loginpassword");
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#!$%^&*()_+\-={}[\]|:;"'<>,.?/]).{8,15}$/;
+
+    pwd.classList.remove("input-error", "input-ok");
+
+    if (regex.test(pwd.value)) {
+        pwd.classList.add("input-ok");
+    }
+});
+
+// Clear red on username typing
+document.getElementById("loginname").addEventListener("input", () => {
+    document.getElementById("loginname").classList.remove("input-error", "input-ok");
+});
+
+
+  </script>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<script>
+flatpickr("#birthday", {
+    dateFormat: "m/d/Y",
+    maxDate: "today",
+    disableMobile: true,
+    onOpen: function(selectedDates, dateStr, instance) {
+        instance.calendarContainer.classList.add("bamboo-datepicker");
+    }
+});
+</script>
 
 </body></html>
