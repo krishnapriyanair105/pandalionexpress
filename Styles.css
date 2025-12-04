@@ -373,3 +373,130 @@ input[type="number"] {
 .input-ok {
     border: 3px solid #7bd67b !important;
 }
+/* ============================================================
+   GLOBAL MOBILE RESPONSIVE FIXES FOR PANDALION (Max 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+
+    /* Wrap entire layout nicely */
+    body {
+        overflow-x: hidden;
+    }
+
+    header {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .logo {
+        height: 70px;
+        width: 70px;
+    }
+
+    .logo img {
+        height: 60px;
+    }
+
+    .brand h1 {
+        font-size: 22px;
+    }
+
+    .brand p {
+        font-size: 12px;
+    }
+
+    /* Main body spacing */
+    main {
+        padding: 20px !important;
+    }
+
+    /* Make ALL big tables responsive (index, welcome, tracking) */
+    table {
+        display: block;
+        overflow-x: auto;
+        width: 100% !important;
+    }
+
+    table tbody tr td {
+        padding: 10px !important;
+        text-align: center;
+        font-size: 14px !important;
+    }
+
+    /* Reduce huge text sizes */
+    td div {
+        font-size: 18px !important;
+        line-height: 22px !important;
+    }
+
+    /* Input fields fit mobile */
+    input {
+        width: 90% !important;
+        max-width: 320px !important;
+        height: 42px !important;
+        font-size: 15px !important;
+    }
+
+    /* Buttons scale */
+    button {
+        width: 120px !important;
+        height: 46px !important;
+        font-size: 15px !important;
+    }
+
+    /* Tracking page: Step icons */
+    #progressbar {
+        width: 95% !important;
+    }
+
+    td img {
+        height: 55px !important;
+        width: auto !important;
+    }
+
+    /* Step labels wrap nicely */
+    #trackingtab td,
+    #logintab td {
+        word-break: break-word;
+        white-space: normal;
+    }
+
+    /* Home page animated icons */
+    .img1, .img2, .img3 {
+        max-width: 90%;
+        height: auto;
+    }
+
+    #homeTable {
+        width: 100% !important;
+    }
+
+    /* Signup modal */
+    #signupbox {
+        width: 90% !important;
+        padding: 15px !important;
+    }
+
+    .signup-inner input {
+        width: 95% !important;
+        margin: 8px 0 !important;
+    }
+
+    /* Login/Tracking split 50–50 layout stacks vertically */
+    #logintab tr td,
+    #trackingtab tr td {
+        display: block;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 200px !important;
+        margin-bottom: 20px;
+    }
+
+    /* Background GIF sections scale */
+    #logintab td,
+    #trackingtab td {
+        background-size: cover !important;
+        background-position: center !important;
+    }
+}
