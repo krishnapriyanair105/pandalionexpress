@@ -153,13 +153,33 @@
 }
         
         function updateImages(status) {
-            for (let i = 1; i <= 6; i++) {
-                const img = document.getElementById("img-" + i);
-                if (img) {
-                    img.style.filter = (i <= status) ? "grayscale(0)" : "grayscale(100%)";
-                    }
-            }
+    // GIF for each step (replace with your real file names)
+    const gifs = [
+        "images/order-received.gif",
+        "images/packing.gif",
+        "images/Panda_Giftbox_Thumbs_Up_Video.gif",
+        "images/order-received.gif",
+        "images/packing.gif",
+        "images/Panda_Giftbox_Thumbs_Up_Video.gif"
+    ];
+    
+    const grayBase = "images/favicon.png";
+
+    for (let i = 1; i <= 6; i++) {
+        const img = document.getElementById("img-" + i);
+        if (!img) continue;
+
+        if (i <= status) {
+            // ACTIVE → show gif and remove grayscale
+            img.src = gifs[i - 1];
+            img.style.filter = "none";
+        } else {
+            // INACTIVE → show favicon + gray filter
+            img.src = grayBase;
+            img.style.filter = "grayscale(100%)";
         }
+    }
+}
         
         function updateTextColors(status) {
             for (let i = 1; i <= 6; i++) {
