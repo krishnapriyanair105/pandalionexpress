@@ -3,7 +3,6 @@
     background: linear-gradient(90deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.15))
 }
 body{
-    background: linear-gradient(180deg, #fff7d6 0%, #fff9e6 60%, #fffef9 100%);
     font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
 }
 .wrap{
@@ -58,4 +57,319 @@ main{
 }
 div{
     display:block;
+}
+input::placeholder{
+  text-align: center;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input{
+  -moz-appearance: textfield; /* Firefox */
+}
+/* POPUP BOX */
+#invalidBox {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    border: 2px solid #ffd264;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    text-align: center;
+    z-index: 999;
+  }
+
+  #signupbox {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    border: 2px solid #ffd264;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    text-align: center;
+    z-index: 999;
+  }
+
+  button {
+    cursor: pointer;
+    height: 50px;
+    width: 100px;
+    background: #ffd264;
+    border-radius: 25px;
+    border-color: #fff0f0;
+  }
+  td{
+    border-radius: 21px;
+    min-height: 300px;
+    height: 300px;
+  }
+  #homeTable {
+    width: 350px;       /* adjust as you like */
+    margin: 0 auto;     /* center it */
+    background: rgba(255,255,255,0.01);
+}
+@keyframes swing {
+    0%   { transform: translateX(0); }
+    25%  { transform: translateX(-50px); }
+    50%  { transform: translateX(50px); }
+    75%  { transform: translateX(-50px); }
+    100% { transform: translateX(0); }
+}
+.img1 {
+    animation: swing 2s ease-in-out infinite;
+    animation-delay: 0s;
+}
+
+.img2 {
+    animation: swing 2s ease-in-out infinite;
+    animation-delay: 0.4s;
+}
+
+.img3 {
+    animation: swing 2s ease-in-out infinite;
+    animation-delay: 0.8s;
+}
+a{
+    cursor: pointer;
+}
+.fadeContainer {
+    opacity: 1;
+    transition: opacity 0.6s ease;
+}
+
+/* start hidden for fade-in targets */
+.fadeContainer.hidden {
+    opacity: 0;
+}
+/* SIGNUP BOX stays centered – NO animation here */
+#signupbox {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+    transform-origin: center center;
+}
+
+/* Animate only the inner content */
+.signup-inner {
+    opacity: 0;
+    transform: scale(0.9);
+    transform-origin: center center;
+    animation: none;
+}
+
+.signup-inner.fadeIn {
+    animation: fadePopup 0.5s ease forwards;
+}
+
+@keyframes fadePopup {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+/* Make date input text match your font */
+input[type="date"] {
+    font-family: inherit !important;
+    font-size: inherit;
+    color: inherit;
+}
+
+/* Remove default Chrome date styling */
+input[type="date"]::-webkit-datetime-edit {
+    font-family: inherit !important;
+    color: inherit;
+}
+
+input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+    font-family: inherit !important;
+}
+
+input[type="date"]::-webkit-datetime-edit-text {
+    font-family: inherit !important;
+}
+
+input[type="date"]::-webkit-datetime-edit-month-field,
+input[type="date"]::-webkit-datetime-edit-day-field,
+input[type="date"]::-webkit-datetime-edit-year-field {
+    font-family: inherit !important;
+}
+
+/* Calendar icon */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.5);
+}
+/* ----------------------------------------------------------
+   PANDALION CUTE INPUTS (TEXT ALIGNMENT ALWAYS CENTERED)
+   ---------------------------------------------------------- */
+
+   input {
+    font-family: inherit;
+    font-size: 16px;
+    color: #444;
+    text-align: center;                 /* match placeholder */
+    padding: 0 18px;
+    height: 45px;
+    border-radius: 28px;
+    border: 3px solid #838383;
+    box-sizing: border-box;
+    outline: none;
+}
+
+input::placeholder {
+    color: #7e7e7e;
+    text-align: center;
+}
+
+/* Remove number spinners */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+
+/* ----------------------------------------------------------
+   BIRTHDAY FIELD PANDA ICON
+   ---------------------------------------------------------- */
+
+#birthday {
+    background-image: url('https://cdn-icons-png.flaticon.com/512/2371/2371580.png');
+    background-size: 22px;
+    background-repeat: no-repeat;
+    background-position: 265px center;   /* fits your 300px width */
+    padding-right: 40px !important;
+}
+
+
+/* ----------------------------------------------------------
+   FLATPICKR – STOP global input styles from breaking it
+   ---------------------------------------------------------- */
+
+.flatpickr-calendar input,
+.flatpickr-calendar .numInputWrapper input {
+    all: unset !important;            /* FULL reset */
+    font-family: inherit !important;
+    font-size: 16px !important;
+    color: #444 !important;
+    text-align: center !important;
+}
+
+.flatpickr-calendar .flatpickr-monthDropdown-months {
+    all: unset !important;
+    font-size: 16px !important;
+    font-family: inherit !important;
+}
+
+.flatpickr-current-month {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px;
+}
+
+
+/* ----------------------------------------------------------
+   CUTE PANDA–THEMED DATE PICKER
+   ---------------------------------------------------------- */
+
+.bamboo-datepicker {
+    border-radius: 22px !important;
+    overflow: hidden !important;
+    border: 2px solid #b0d79c !important;
+    background: #ffffff !important;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+}
+
+/* Header */
+.bamboo-datepicker .flatpickr-months {
+    background: #e8f4e3 !important;
+    padding: 10px !important;
+}
+
+.bamboo-datepicker .flatpickr-weekday {
+    color: #7aa564;
+    font-weight: 600;
+}
+
+/* Days */
+.bamboo-datepicker .flatpickr-day {
+    border-radius: 12px !important;
+    transition: 0.2s ease-in-out !important;
+}
+
+.bamboo-datepicker .flatpickr-day:hover {
+    background: #e7f5dd !important;
+}
+
+/* Selected day with panda */
+.bamboo-datepicker .flatpickr-day.selected {
+    background: #97cf85 !important;
+    color: white !important;
+    position: relative !important;
+}
+
+.bamboo-datepicker .flatpickr-day.selected::after {
+    content: "🐼";
+    font-size: 14px;
+    position: absolute;
+    bottom: -3px;
+    right: -3px;
+}
+
+/* Today */
+.bamboo-datepicker .flatpickr-day.today {
+    border: 2px solid #9ccc7b !important;
+}
+/* Close button for signup popup */
+#closeSignup {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #ffd264;
+    border: none;
+    font-size: 20px;
+    line-height: 20px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    transition: 0.2s;
+}
+
+#closeSignup:hover {
+    background: #ffbd3f;
+    transform: scale(1.1);
+}
+.input-error {
+    border: 3px solid #ff4d4d !important;
+    animation: shake 0.2s ease-in-out;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    50% { transform: translateX(3px); }
+    75% { transform: translateX(-3px); }
+    100% { transform: translateX(0); }
+}
+.input-ok {
+    border: 3px solid #7bd67b !important;
 }
