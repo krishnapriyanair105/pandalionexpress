@@ -59,3 +59,62 @@ main{
 div{
     display:block;
 }
+/* ============================
+   MOBILE RESPONSIVE FIXES
+   ============================ */
+@media (max-width: 768px) {
+
+    /* Reduce main container padding */
+    main {
+        padding: 20px !important;
+    }
+
+    /* Table becomes scrollable horizontally */
+    table {
+        display: block;
+        overflow-x: auto;
+        width: 100% !important;
+    }
+
+    /* Reduce header padding */
+    thead tr {
+        height: auto !important;
+    }
+
+    /* Reduce image sizes */
+    td img {
+        height: 55px !important;
+        width: auto !important;
+    }
+
+    /* Progress bar fits mobile */
+    #progressbar,
+    #progressbar > div {
+        height: 10px !important;
+    }
+
+    /* Step labels should wrap nicely */
+    tbody tr td {
+        padding: 10px !important;
+        font-size: 11px !important;
+        width: 100px !important;
+        word-break: break-word;
+        white-space: normal;
+    }
+
+    /* Align header items vertically */
+    header {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    header .logo img {
+        width: 120px;
+        margin-bottom: 10px;
+    }
+
+    header .brand h1 {
+        font-size: 22px;
+    }
+}
