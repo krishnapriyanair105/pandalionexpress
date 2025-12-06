@@ -153,21 +153,6 @@
             document.body.innerHTML = document.body.innerHTML.replace("#INVALID", "#" + orderid);
         }
         
-        // --- 2. FETCH STATUS FROM SUPABASE ---
-        async function getStatus(orderid) {
-            const url = `${SUPABASE_URL}/rest/v1/pl_orderstatus?orderid=eq.${orderid}&select=status`;
-        
-            const res = await fetch(url, {
-                headers: {
-                    apikey: SUPABASE_ANON,
-                    Authorization: `Bearer ${SUPABASE_ANON}`
-                }
-            });
-        
-            const data = await res.json();
-            if (data.length === 0) return null;
-            return parseInt(data[0].status);
-        }
         
         // --- 3. UPDATE UI BASED ON STATUS ---
         function updateProgress(status) {
