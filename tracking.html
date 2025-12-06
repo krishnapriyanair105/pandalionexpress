@@ -129,7 +129,7 @@
         // ---- SUPABASE CONFIG ----
         const SUPABASE_URL = "https://oeriuexkhrwzblfkozss.supabase.co";
         const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9lcml1ZXhraHJ3emJsZmtvenNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQyNjAwNjQsImV4cCI6MjA3OTgzNjA2NH0.850b53ovl1lk9iXSmgV9PJmprzsCLipIqrw03kQ2cOc";
-        const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
         console.log("Progressbar element:", document.getElementById("progressbar"));
         // --- 1. READ ORDERKEY FROM URL ---
