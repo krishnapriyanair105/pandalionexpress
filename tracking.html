@@ -220,38 +220,38 @@
             }
         }
         
-    (async () => {
+        // --- MAIN ---
+        (async () => {
     if (!orderid) return;
 
-    // 1) get orderkey + message + status from pl_orderstatus
-    const { data: statusRow, error: statusErr } = await sb
+    // 1) get orderkey + message + status
+    const { data: statusRow } = await sb
         .from("pl_orderstatus")
         .select("orderkey, message, status")
         .eq("orderid", orderid)
         .maybeSingle();
 
-    if (statusErr) console.log("STATUS ERROR:", statusErr);
     if (!statusRow) return;
 
-    // 2) get recipientname from pl_order using orderkey
-    const { data: orderRow, error: orderErr } = await sb
+    // 2) get recipientname from pl_order
+    const { data: orderRow } = await sb
         .from("pl_order")
         .select("recipientname")
         .eq("orderkey", statusRow.orderkey)
         .maybeSingle();
 
-    if (orderErr) console.log("ORDER ERROR:", orderErr);
     if (!orderRow) return;
 
-    // 3) update the displayed text
+    // 3) update text elements
     document.getElementById("messageto").innerText = orderRow.recipientname;
     document.getElementById("textmessage").innerText = statusRow.message;
 
-    // 4) update UI status
+    // 4) update UI status (optional — your existing code)
     updateProgress(statusRow.status);
     updateImages(statusRow.status);
     updateTextColors(statusRow.status);
 })();
+    });
         </script>
         
         
