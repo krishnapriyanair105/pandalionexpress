@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HTML → Image · Studio</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=DM+Mono:wght@400;500&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- html2canvas for rasterising DOM to canvas -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<style>
+  :root{
+    --paper:      #f2ede4;
+    --paper-2:    #ebe4d7;
+    --ink:        #17140f;
+    --ink-soft:   #4a4238;
+    --ink-mute:   #8a8172;
+    --rule:       #d9d0bd;
+    --accent:     #c4421a;
+    --accent-2:   #e88a2b;
+    --ok:         #2f6b3a;
+    --shadow:     0 1px 0 rgba(23,20,15,.06), 0 20px 40px -18px rgba(23,20,15,.25);
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);font-family:"IBM Plex Sans", system-ui, sans-serif}
+  body{
+    min-height:100vh;
+    background-image:
+      radial-gradient(1200px 500px at 85% -10%, rgba(232,138,43,.10), transparent 60%),
+      radial-gradient(900px 500px at -10% 110%, rgba(196,66,26,.08), transparent 60%);
+    background-attachment: fixed;
+  }
+  ::selection{background:var(--accent);color:#fff8ee}
+
+  header.top{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 34px 10px 34px;
+    border-bottom:1px dashed var(--rule);
+  }
+  .brand{display: flex;
+  align-items: center; /* 👈 Centers the logo and title vertically */
+  gap: 12px;}
+  .brand h1{
+    font-family:"Instrument Serif", serif;
+    font-weight:400;
+    font-size: clamp(30px, 3.4vw, 44px);
+    letter-spacing:-.01em;
+    margin:0;
+  }
+  .brand h1 em{font-style:italic;color:var(--accent)}
+  .brand .dot{width:8px;height:8px;background:var(--accent);border-radius:99px;display:inline-block;transform:translateY(-4px)}
+  .brand .kicker{
+    font-family:"JetBrains Mono", monospace;
+    font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--ink-mute);
+  }
+  .head-actions{display:flex;gap:10px;align-items:center}
+
+  .btn{
+    font-family:"IBM Plex Sans", sans-serif;
+    font-weight:600; font-size:13px;
+    padding:10px 16px;
+    border-radius:999px;
+    border:1px solid var(--ink);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition: transform .15s ease, background-color .15s ease, color .15s ease, box-shadow .15s ease;
+    display:inline-flex;align-items:center;gap:8px;
+  }
+  .btn:hover{transform:translateY(-1px); box-shadow:var(--shadow)}
+  .btn.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .btn.primary:hover{background:var(--accent);border-color:var(--accent)}
+  .btn.ghost{border-color:var(--rule); background:transparent}
+  .btn.small{padding:6px 12px;font-size:12px}
+
+  select, input[type="text"]{
+    font-family:"JetBrains Mono", monospace;
+    font-size:12px;
+    padding:8px 12px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    border-radius:8px;
+    outline:none;
+  }
+  select:focus, input:focus{border-color:var(--ink)}
+
+  main{
+    display:grid;
+    grid-template-columns: minmax(380px, 42%) 1fr;
+    gap:0;
+    min-height: calc(100vh - 84px);
+  }
+  @media (max-width: 980px){
+    main{grid-template-columns:1fr; }
+  }
+
+  .editor{
+    border-right:1px dashed var(--rule);
+    padding:22px 24px 40px 34px;
+    display:flex; flex-direction:column; gap:14px;
+    min-height:0;
+  }
+  .pane-title{
+    display:flex;align-items:center;justify-content:space-between;
+    font-family:"JetBrains Mono", monospace;
+    font-size:11px; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--ink-mute);
+  }
+  .pane-title .num{color:var(--accent)}
+  .code-wrap{
+    position:relative;
+    flex:1;
+    background:#faf6ec;
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow: inset 0 0 0 1px rgba(23,20,15,.02);
+    overflow:hidden;
+    display:flex;
+  }
+  textarea#code{
+    width:100%;
+    min-height: 60vh;
+    resize:none;
+    border:0; outline:0; background:transparent;
+    padding:16px 18px;
+    font-family:"JetBrains Mono", monospace;
+    font-size:13px;
+    line-height:1.6;
+    color:var(--ink);
+    tab-size:2;
+  }
+  .editor-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+  .editor-row .left, .editor-row .right{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+
+  .field{display:flex;align-items:center;gap:8px}
+  .field label{
+    font-family:"JetBrains Mono", monospace;
+    font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-mute)
+  }
+
+  .previews{
+    padding:22px 34px 60px 24px;
+    display:flex;flex-direction:column;gap:16px;
+    min-height:0;
+  }
+  .preview-toolbar{
+    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;
+  }
+  .scale-chips{display:flex;gap:6px;flex-wrap:wrap}
+  .chip{
+    font-family:"JetBrains Mono", monospace;
+    font-size:11px;
+    padding:6px 10px;
+    border-radius:999px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    user-select:none;
+  }
+  .chip.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .chip:hover{border-color:var(--ink)}
+
+  .thumbs{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap:20px;
+  }
+  .thumb{
+    background:#fff;
+    border:1px solid var(--rule);
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow: var(--shadow);
+    display:flex;flex-direction:column;
+  }
+  .thumb header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:10px 14px;
+    border-bottom:1px solid var(--rule);
+    background: linear-gradient(180deg, #fbf7ee, #f4eede);
+  }
+  .thumb header .lbl{
+    font-family:"JetBrains Mono", monospace;
+    font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft);
+  }
+  .thumb header .lbl b{color:var(--accent); font-weight:600}
+  .thumb .stage{
+    position:relative;
+    background:
+      linear-gradient(45deg, #efe9dc 25%, transparent 25%),
+      linear-gradient(-45deg, #efe9dc 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #efe9dc 75%),
+      linear-gradient(-45deg, transparent 75%, #efe9dc 75%);
+    background-size: 18px 18px;
+    background-position: 0 0, 0 9px, 9px -9px, -9px 0;
+    background-color:#fbf7ee;
+    padding:14px;
+    overflow:auto;
+  }
+  .thumb .stage .inner{
+    transform-origin: top left;
+    display:inline-block;
+    background:#fff;
+    border-radius:6px;
+    box-shadow: 0 1px 0 rgba(0,0,0,.03), 0 10px 24px -14px rgba(0,0,0,.25);
+  }
+
+  #renderSource{
+    position:fixed;
+    left:-100000px; top:0;
+    background:#fff;
+  }
+
+  .footer-note{
+    font-family:"JetBrains Mono", monospace;
+    font-size:11px; color:var(--ink-mute);
+    letter-spacing:.06em;
+    padding: 6px 34px 24px;
+    border-top:1px dashed var(--rule);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  }
+  .footer-note em{color:var(--accent);font-style:normal}
+
+  .toast{
+    position:fixed; right:20px; bottom:20px;
+    background:var(--ink); color:var(--paper);
+    padding:12px 16px; border-radius:10px;
+    font-size:13px; font-family:"IBM Plex Sans", sans-serif;
+    box-shadow: var(--shadow);
+    opacity:0; transform:translateY(8px);
+    transition: opacity .2s ease, transform .2s ease;
+    pointer-events:none;
+    z-index:100;
+  }
+  .toast.show{opacity:1;transform:translateY(0)}
+
+  /* Upload zone */
+  .uploads{
+    display:flex; flex-direction:column; gap:10px;
+    padding:14px;
+    border:1px dashed var(--rule);
+    border-radius:12px;
+    background:#faf6ec;
+  }
+  .uploads .drop{
+    border:1.5px dashed var(--rule);
+    border-radius:10px;
+    padding:16px;
+    text-align:center;
+    color:var(--ink-mute);
+    font-family:"JetBrains Mono", monospace;
+    font-size:12px;
+    letter-spacing:.08em;
+    cursor:pointer;
+    transition: border-color .15s ease, background .15s ease, color .15s ease;
+  }
+  .uploads .drop:hover, .uploads .drop.hover{
+    border-color:var(--accent); background:#fff8ee; color:var(--ink);
+  }
+  .uploads .drop b{color:var(--ink); font-weight:600}
+  .uploads .list{display:flex; flex-wrap:wrap; gap:8px}
+  .up-chip{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:6px 10px 6px 6px;
+    border:1px solid var(--rule);
+    border-radius:999px;
+    background:#fff;
+    font-family:"JetBrains Mono", monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+  }
+  .up-chip img{width:22px;height:22px;object-fit:cover;border-radius:99px;border:1px solid var(--rule)}
+  .up-chip b{color:var(--ink);font-weight:600}
+  .up-chip button{
+    all:unset; cursor:pointer;
+    padding:2px 6px; border-radius:99px;
+    color:var(--ink-mute); font-size:14px; line-height:1;
+  }
+  .up-chip button:hover{color:var(--accent)}
+  .uploads .hint{
+    font-family:"JetBrains Mono", monospace;
+    font-size:10.5px;
+    color:var(--ink-mute);
+    letter-spacing:.06em;
+  }
+  .uploads .hint code{
+    background:#fff; padding:2px 6px; border-radius:4px; border:1px solid var(--rule); color:var(--ink);
+  }
+
+  .spinner{
+    width:12px;height:12px;border-radius:50%;
+    border:2px solid rgba(242,237,228,.35); border-top-color:var(--paper);
+    animation:spin .8s linear infinite; display:inline-block;
+  }
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* Pandalion: a tiny bit panda, a tiny bit lion, completely here to render. */
+  :root{--paper:#fff9e9;--paper-2:#fff1d9;--ink:#4b3828;--ink-soft:#735943;--ink-mute:#a7896c;--rule:#ead5b9;--accent:#ef7359;--accent-2:#729d5e;--shadow:0 7px 0 rgba(211,166,117,.14),0 18px 36px -18px rgba(96,64,38,.28)}
+  html,body{font-family:"Nunito",system-ui,sans-serif}
+  body{background-color:var(--paper);background-image:radial-gradient(circle at 8% 12%,#dceeb4 0 5px,transparent 6px),radial-gradient(circle at 92% 70%,#ffdda0 0 7px,transparent 8px),linear-gradient(135deg,#fff9e9,#ffecd9 55%,#f8f5d9);background-size:88px 88px,140px 140px,auto}
+  header.top{padding:20px 34px 16px;border-bottom:0;background:rgba(255,253,247,.7);backdrop-filter:blur(12px)}
+  .brand{gap:12px}.brand h1{font-family:"Baloo 2",cursive;font-size:clamp(33px,3.5vw,47px);font-weight:800;line-height:.8;letter-spacing:-.035em}.brand .kicker,.pane-title,.field label,.chip,.thumb header .lbl,.footer-note,.uploads .drop,.uploads .hint,.up-chip,select,input[type="text"],textarea#code{font-family:"DM Mono",monospace}.brand .kicker{font-size:9px;color:#8b745c;background:#fff;border:1px solid #ead5b9;padding:6px 8px;border-radius:999px}
+  .brand-mark{position:relative;width:41px;height:37px;border-radius:50%;background:#ffdc7b;border:3px solid var(--ink);overflow:visible;flex:none}.brand-mark .ear{position:absolute;width:13px;height:13px;background:#342a26;border-radius:50%;top:-7px}.brand-mark .left{left:-4px}.brand-mark .right{right:-4px}.brand-mark .mane{position:absolute;inset:-8px;border:5px solid #ed9147;border-radius:50%;z-index:-1}.brand-mark .face{font:700 13px/37px Arial;color:#342a26;position:absolute;inset:0;text-align:center}
+  .btn{font-family:"Nunito",sans-serif;font-weight:800;border:1px solid #e5c9a4;background:#fff;color:var(--ink);border-radius:14px;box-shadow:0 3px 0 #eddcc3}.btn:hover{transform:translateY(-2px) rotate(-.5deg);box-shadow:0 5px 0 #eddcc3,0 12px 20px -14px rgba(96,64,38,.45)}.btn.primary{background:linear-gradient(135deg,#fa9f4b,#ef7056);border-color:#ef7056;color:#fff;box-shadow:0 4px 0 #c95d4a}.btn.primary:hover{background:linear-gradient(135deg,#7ca865,#5e8b53);border-color:#5e8b53;box-shadow:0 4px 0 #486e40}.btn.ghost{border-color:#ead5b9;background:rgba(255,255,255,.75)}
+  main{grid-template-columns:minmax(380px,42%) 1fr;gap:18px;padding:12px 20px 0;min-height:calc(100vh - 105px)}.editor,.previews{position:relative;border:1px solid #ead5b9;border-radius:25px 25px 0 0;background:rgba(255,253,247,.78);padding:22px 24px 34px;box-shadow:var(--shadow)}.editor{border-right:1px solid #ead5b9}.editor:before{content:"🐼";position:absolute;right:17px;top:-26px;font-size:46px;filter:drop-shadow(0 3px 0 #fff)}
+/* Lion base styling */
+.previews:after {
+  content: "🦁";
+  position: absolute;
+  right: 15px;
+  bottom: 14px;
+  font-size: 57px;
+  filter: drop-shadow(0 3px 0 #fff);
+  transform: rotate(-9deg);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.25s ease;
+  cursor: pointer;
+}
+/* Roar Animation & Glow on Hover */
+.previews:hover:after {
+  animation: lionRoar 0.35s ease-in-out infinite alternate;
+  filter: drop-shadow(0 8px 16px rgba(239, 115, 89, 0.45));
+}
+/* Floating "ROAR! 🦁" Speech Bubble */
+.previews:before {
+  content: "ROAR! 🦁";
+  position: absolute;
+  right: 18px;
+  bottom: 78px;
+  background: #ef7359;
+  color: #fff;
+  font-family: "DM Mono", monospace;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(239, 115, 89, 0.35);
+  opacity: 0;
+  transform: translateY(8px) scale(0.8);
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+  z-index: 10;
+}
+.previews:hover:before {
+  opacity: 1;
+  transform: translateY(0) scale(1.1) rotate(4deg);
+}
+/* Roar Keyframe Animation */
+@keyframes lionRoar {
+  0%   { transform: scale(1.3) rotate(-12deg) translateY(-4px); }
+  50%  { transform: scale(1.45) rotate(10deg) translateY(-8px); }
+  100% { transform: scale(1.35) rotate(-4deg) translateY(-5px); }
+}
+.editor:after{content:"panda-monium, but organised";position:absolute;right:20px;top:30px;background:#fff;border:1px solid #4b3828;border-radius:13px;padding:6px 9px;font:10px "DM Mono",monospace;color:#4b3828;transform:rotate(-3deg);z-index:1}
+  .pane-title{font-size:10px;color:#94795f;font-weight:500}.pane-title .num{color:var(--accent);font-weight:bold}.code-wrap{background:#fff;border-color:#ead5b9;border-radius:17px;box-shadow:inset 0 0 0 3px #fff9ed}textarea#code{font-size:12px;line-height:1.7;color:#604a38;background:linear-gradient(90deg,#fff5e7 0 38px,#fff 38px)}select,input[type="text"]{border-color:#e3ceb0;background:#fff;border-radius:11px;color:var(--ink)}select:focus,input:focus{border-color:#ef7359;box-shadow:0 0 0 3px rgba(239,115,89,.13)}
+  .chip{border-color:#dfc7a6;background:#fff;color:#80664f;border-radius:12px}.chip.on{background:#6e995a;border-color:#6e995a;color:#fff;box-shadow:0 3px 0 #527744}.chip:hover{border-color:#ef7359}.thumb{border-color:#ead5b9;border-radius:19px;box-shadow:var(--shadow)}.thumb header{background:linear-gradient(135deg,#fff9ec,#f5fae8);border-color:#ead5b9}.thumb header .lbl{color:#80664f}.thumb header .lbl b{color:#ef7359}.thumb .stage{background-color:#fff9eb;background-image:radial-gradient(#e3d0b3 1px,transparent 1px);background-size:13px 13px}.uploads{background:#f8fce9;border-color:#bfd79d;border-radius:17px}.uploads .drop{border-color:#a9c981;border-radius:13px;color:#71865d;background:linear-gradient(135deg,#fff,#f4fae4)}.uploads .drop:hover,.uploads .drop.hover{border-color:#ef7359;background:#fff4e7;color:var(--ink)}.footer-note{margin-top:16px;border-top:0;color:#967b61;padding:12px 34px 24px}.footer-note em{color:#ef7359;font-weight:bold}.toast{background:#4b3828;color:#fff;border:2px solid #fff;border-radius:14px;box-shadow:0 6px 0 #c9a983}
+  @media (max-width:980px){main{padding:12px;gap:12px}.editor,.previews{border-radius:20px}.editor{padding:20px}.previews{padding:20px}.editor:after{display:none}}
+  .brand h1{display:flex;flex-direction:column;gap:2px;line-height:.8}
+  .brand h1 .brand-name{font-size:1em}
+  .brand h1 .brand-subtitle{font-size:.62em;letter-spacing:.01em;color:#ef7359;line-height:1}
+
+/* New Logo Style */
+.brand-logo {
+  height: 44px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 10px;
+  flex: none;
+}
+
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <img src="https://pandalion.in/images/newlogo.png" alt="Logo" class="brand-logo" />
+    <h1><span class="brand-name">Pandalion</span><span class="brand-subtitle">Render Room</span></h1>
+    <div class="kicker">Cute. Fierce. Pixel Perfect.</div>
+  </div>
+  <div class="head-actions">
+    <button class="btn ghost" id="loadSample">Load sample</button>
+    <button class="btn ghost" id="clearBtn">Clear</button>
+    <button class="btn primary" id="renderBtn">Render magic ✦</button>
+  </div>
+</header>
+
+<main>
+  <section class="editor">
+    <div class="pane-title">
+      <span><span class="num">01</span> &nbsp; Paste your HTML / CSS</span>
+      <span id="charCount">0 chars</span>
+    </div>
+
+    <div class="code-wrap">
+<textarea id="code" spellcheck="false" autocomplete="off"><!-- Paste any HTML here. Inline &lt;style&gt; is fully supported. -->
+<img src="https://pandalion.in/images/pandalion-sample-card.png" alt="Pandalion Render Room creative picnic" style="display:block;width:720px;height:auto;border-radius:28px" /></textarea>
+    </div>
+
+    <div class="editor-row">
+      <div class="left">
+        <div class="field">
+          <label for="dpr">DPR</label>
+          <select id="dpr" title="Device pixel ratio for sharp exports">
+            <option value="1">1x</option>
+            <option value="2" selected>2x (sharp)</option>
+            <option value="3">3x (ultra)</option>
+            <option value="4">4x (print)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="bg">BG</label>
+          <select id="bg">
+            <option value="transparent">transparent</option>
+            <option value="#ffffff" selected>white</option>
+            <option value="#0f172a">dark</option>
+            <option value="custom">custom…</option>
+          </select>
+          <input type="text" id="bgCustom" value="#ffffff" style="width:96px; display:none" />
+        </div>
+      </div>
+      <div class="right">
+        <div class="field">
+          <label for="fname">FILE</label>
+          <input type="text" id="fname" value="render" style="width:130px" />
+          <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink-mute)">.png</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- UPLOADS -->
+    <div class="pane-title" style="margin-top:4px">
+      <span><span class="num">03</span> &nbsp; Upload images (CORS-safe)</span>
+      <span id="uploadCount">0 files</span>
+    </div>
+    <div class="uploads">
+      <div class="drop" id="dropZone" tabindex="0">
+        <div><b>Click</b> or drop images here</div>
+        <div style="margin-top:4px">any file you drop will replace matching <code>&lt;img src="…"&gt;</code> in your HTML</div>
+      </div>
+      <input type="file" id="fileInput" accept="image/*" multiple hidden />
+
+      <div class="list" id="uploadList"></div>
+
+      <div class="hint">
+        Matching rules — an <code>&lt;img&gt;</code> is swapped when any of these matches an uploaded filename:
+        &nbsp;• exact filename (<code>house.png</code>) &nbsp;• URL basename (<code>…/reports/email/house.png</code>) &nbsp;• <code>upload:house.png</code>
+      </div>
+    </div>
+  </section>
+
+  <section class="previews">
+    <div class="preview-toolbar">
+      <div class="pane-title" style="gap:14px">
+        <span><span class="num">02</span> &nbsp; Preview at multiple scales</span>
+      </div>
+      <div class="scale-chips" id="scaleChips"></div>
+    </div>
+
+    <div class="thumbs" id="thumbs"></div>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px">
+      <button class="btn primary" id="downloadCurrent"><span>Download PNG (current sizes)</span></button>
+      <button class="btn ghost" id="downloadAll">Download all sizes (one-by-one)</button>
+      <button class="btn ghost" id="copyBtn">Copy 100% to clipboard</button>
+    </div>
+  </section>
+</main>
+
+<div class="footer-note">
+  <span>Runs entirely in your browser · no upload · <em>html2canvas</em> + native canvas</span>
+  <span id="renderInfo">idle</span>
+</div>
+
+<div id="renderSource"></div>
+<div class="toast" id="toast">Rendered ✓</div>
+
+<script>
+(() => {
+  const $ = (s) => document.querySelector(s);
+  const codeEl   = $('#code');
+  const dprEl    = $('#dpr');
+  const bgEl     = $('#bg');
+  const bgCustom = $('#bgCustom');
+  const fnameEl  = $('#fname');
+  const chipsEl  = $('#scaleChips');
+  const thumbsEl = $('#thumbs');
+  const sourceEl = $('#renderSource');
+  const charEl   = $('#charCount');
+  const infoEl   = $('#renderInfo');
+  const toastEl  = $('#toast');
+
+  const SCALES = [100, 90, 80, 70, 50];
+  const activeScales = new Set(SCALES);
+  let latestCanvas = null;
+
+  // ---- Uploads ----
+  const uploads = new Map();
+  const dropZone   = $('#dropZone');
+  const fileInput  = $('#fileInput');
+  const uploadList = $('#uploadList');
+  const uploadCount= $('#uploadCount');
+
+  function readFileAsDataURL(file){
+    return new Promise((res, rej) => {
+      const r = new FileReader();
+      r.onload = () => res(r.result);
+      r.onerror = rej;
+      r.readAsDataURL(file);
+    });
+  }
+
+  async function addFiles(fileList){
+    const files = [...fileList].filter(f => f.type.startsWith('image/'));
+    for (const f of files) {
+      const url = await readFileAsDataURL(f);
+      uploads.set(f.name.toLowerCase(), { name: f.name, dataUrl: url });
+    }
+    renderUploadList();
+  }
+
+  function renderUploadList(){
+    uploadList.innerHTML = '';
+    uploadCount.textContent = uploads.size + ' file' + (uploads.size === 1 ? '' : 's');
+    for (const [, u] of uploads) {
+      const chip = document.createElement('span');
+      chip.className = 'up-chip';
+      chip.innerHTML =
+        '<img src="' + u.dataUrl + '" alt="">' +
+        '<b>' + u.name + '</b>' +
+        '<button title="Remove" data-name="' + u.name.toLowerCase() + '">×</button>';
+      chip.querySelector('button').addEventListener('click', (e) => {
+        uploads.delete(e.currentTarget.dataset.name);
+        renderUploadList();
+      });
+      uploadList.appendChild(chip);
+    }
+  }
+
+  dropZone.addEventListener('click', () => fileInput.click());
+  dropZone.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') fileInput.click(); });
+  fileInput.addEventListener('change', (e) => addFiles(e.target.files));
+
+  ['dragenter','dragover'].forEach(ev => {
+    dropZone.addEventListener(ev, (e) => { e.preventDefault(); dropZone.classList.add('hover'); });
+  });
+  ['dragleave','drop'].forEach(ev => {
+    dropZone.addEventListener(ev, (e) => { e.preventDefault(); dropZone.classList.remove('hover'); });
+  });
+  dropZone.addEventListener('drop', (e) => {
+    if (e.dataTransfer && e.dataTransfer.files) addFiles(e.dataTransfer.files);
+  });
+
+  function swapImagesWithUploads(root){
+    if (!uploads.size) return;
+    root.querySelectorAll('img').forEach(img => {
+      const raw = img.getAttribute('src') || '';
+      if (!raw) return;
+      let candidate = raw;
+      if (raw.toLowerCase().startsWith('upload:')) {
+        candidate = raw.slice(7);
+      } else {
+        candidate = raw.split('?')[0].split('#')[0];
+        const idx = Math.max(candidate.lastIndexOf('/'), candidate.lastIndexOf('\\'));
+        if (idx >= 0) candidate = candidate.slice(idx + 1);
+      }
+      const key = candidate.toLowerCase();
+      if (uploads.has(key)) {
+        img.setAttribute('src', uploads.get(key).dataUrl);
+        img.removeAttribute('crossorigin');
+      }
+    });
+    root.querySelectorAll('[style*="background"]').forEach(el => {
+      const s = el.getAttribute('style') || '';
+      const replaced = s.replace(/url\((['"]?)([^)'"]+)\1\)/gi, (m, q, u) => {
+        let cand = u;
+        if (cand.toLowerCase().startsWith('upload:')) cand = cand.slice(7);
+        else {
+          cand = cand.split('?')[0].split('#')[0];
+          const idx = Math.max(cand.lastIndexOf('/'), cand.lastIndexOf('\\'));
+          if (idx >= 0) cand = cand.slice(idx + 1);
+        }
+        const k = cand.toLowerCase();
+        if (uploads.has(k)) return 'url("' + uploads.get(k).dataUrl + '")';
+        return m;
+      });
+      if (replaced !== s) el.setAttribute('style', replaced);
+    });
+  }
+
+  function buildChips(){
+    chipsEl.innerHTML = '';
+    SCALES.forEach(s => {
+      const b = document.createElement('button');
+      b.className = 'chip' + (activeScales.has(s) ? ' on' : '');
+      b.textContent = s + '%';
+      b.dataset.scale = s;
+      b.addEventListener('click', () => {
+        if (activeScales.has(s)) activeScales.delete(s);
+        else activeScales.add(s);
+        buildChips();
+        renderThumbs();
+      });
+      chipsEl.appendChild(b);
+    });
+  }
+
+  let toastTimer = null;
+  function toast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 1800);
+  }
+
+  const updateCount = () => charEl.textContent = codeEl.value.length.toLocaleString() + ' chars';
+  codeEl.addEventListener('input', updateCount);
+  updateCount();
+
+  bgEl.addEventListener('change', () => {
+    if (bgEl.value === 'custom') { bgCustom.style.display = 'inline-block'; bgCustom.focus(); }
+    else { bgCustom.style.display = 'none'; bgCustom.value = bgEl.value === 'transparent' ? '' : bgEl.value; }
+  });
+
+  function currentBg(){
+    if (bgEl.value === 'transparent') return null;
+    if (bgEl.value === 'custom') return bgCustom.value || '#ffffff';
+    return bgEl.value;
+  }
+
+  function prepareSource(){
+    sourceEl.innerHTML = codeEl.value;
+    swapImagesWithUploads(sourceEl);
+    sourceEl.style.width  = 'auto';
+    sourceEl.style.height = 'auto';
+    sourceEl.style.display = 'inline-block';
+  }
+
+  async function waitForImages(root){
+    const imgs = [...root.querySelectorAll('img')];
+    await Promise.all(imgs.map(img => {
+      if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+      return new Promise(res => {
+        img.addEventListener('load',  res, { once:true });
+        img.addEventListener('error', res, { once:true });
+      });
+    }));
+  }
+
+  async function renderSourceCanvas(){
+    prepareSource();
+    await waitForImages(sourceEl);
+    const dpr = parseInt(dprEl.value, 10) || 2;
+    const bg  = currentBg();
+    infoEl.innerHTML = '<span class="spinner"></span> rendering @ ' + dpr + 'x…';
+    const canvas = await html2canvas(sourceEl, {
+      backgroundColor: bg,
+      scale: dpr,
+      useCORS: true,
+      allowTaint: false,
+      logging: false,
+      windowWidth: sourceEl.scrollWidth,
+      windowHeight: sourceEl.scrollHeight,
+    });
+    latestCanvas = canvas;
+    infoEl.textContent = canvas.width + ' × ' + canvas.height + ' px (dpr ' + dpr + ')';
+    return canvas;
+  }
+
+  function makeThumbCard(scalePct, canvas){
+    const card = document.createElement('div');
+    card.className = 'thumb';
+    const header = document.createElement('header');
+    const dpr = parseInt(dprEl.value, 10) || 2;
+    const logicalW = Math.round(canvas.width / dpr);
+    const logicalH = Math.round(canvas.height / dpr);
+    const scaledW  = Math.round(logicalW * scalePct / 100);
+    const scaledH  = Math.round(logicalH * scalePct / 100);
+    header.innerHTML =
+      '<span class="lbl"><b>' + scalePct + '%</b> · ' + scaledW + ' × ' + scaledH + '</span>' +
+      '<span class="lbl">' + canvas.width + '×' + canvas.height + ' px</span>';
+    const stage = document.createElement('div');
+    stage.className = 'stage';
+    const inner = document.createElement('div');
+    inner.className = 'inner';
+    const img = document.createElement('img');
+    img.src = canvas.toDataURL('image/png');
+    img.style.display = 'block';
+    img.style.width  = scaledW + 'px';
+    img.style.height = scaledH + 'px';
+    img.style.imageRendering = 'auto';
+    img.draggable = false;
+    inner.appendChild(img);
+    stage.appendChild(inner);
+    card.appendChild(header);
+    card.appendChild(stage);
+    const dl = document.createElement('button');
+    dl.className = 'btn small ghost';
+    dl.textContent = 'Download ' + scalePct + '%';
+    dl.style.margin = '10px 14px 14px auto';
+    dl.addEventListener('click', () => downloadScaled(scalePct));
+    card.appendChild(dl);
+    return card;
+  }
+
+  function renderThumbs(){
+    thumbsEl.innerHTML = '';
+    if (!latestCanvas) {
+      const empty = document.createElement('div');
+      empty.style.cssText = 'padding:40px;border:1px dashed var(--rule);border-radius:12px;color:var(--ink-mute);font-family:"JetBrains Mono",monospace;font-size:13px';
+      empty.textContent = 'Click "Render preview" to rasterise your HTML.';
+      thumbsEl.appendChild(empty);
+      return;
+    }
+    const list = [...activeScales].sort((a,b)=>b-a);
+    list.forEach(s => thumbsEl.appendChild(makeThumbCard(s, latestCanvas)));
+  }
+
+  function scaledCanvas(scalePct){
+    const src = latestCanvas;
+    const dpr = parseInt(dprEl.value, 10) || 2;
+    const logicalW = src.width / dpr;
+    const logicalH = src.height / dpr;
+    const outW = Math.round(logicalW * scalePct / 100 * dpr);
+    const outH = Math.round(logicalH * scalePct / 100 * dpr);
+    const c = document.createElement('canvas');
+    c.width = outW; c.height = outH;
+    const ctx = c.getContext('2d');
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    const bg = currentBg();
+    if (bg) { ctx.fillStyle = bg; ctx.fillRect(0,0,outW,outH); }
+    ctx.drawImage(src, 0, 0, outW, outH);
+    return c;
+  }
+
+  function downloadCanvasAs(canvas, filename){
+    canvas.toBlob(blob => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = filename;
+      document.body.appendChild(a); a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }, 'image/png');
+  }
+
+  function baseName(){
+    const raw = (fnameEl.value || 'render').trim().replace(/\.png$/i, '');
+    return raw.replace(/[^\w\-]+/g, '_') || 'render';
+  }
+
+  function downloadScaled(scalePct){
+    if (!latestCanvas) return toast('Render first');
+    const c = scaledCanvas(scalePct);
+    downloadCanvasAs(c, baseName() + '_' + scalePct + 'pct.png');
+    toast('Saved ' + scalePct + '%');
+  }
+
+  $('#renderBtn').addEventListener('click', async () => {
+    try { await renderSourceCanvas(); renderThumbs(); toast('Rendered ✓'); }
+    catch (e) { console.error(e); infoEl.textContent = 'error: ' + e.message; toast('Render failed'); }
+  });
+
+  $('#downloadCurrent').addEventListener('click', () => {
+    if (!latestCanvas) return toast('Render first');
+    const list = [...activeScales].sort((a,b)=>b-a);
+    if (!list.length) return toast('Enable a size');
+    list.forEach((s, i) => setTimeout(() => downloadScaled(s), i * 250));
+  });
+
+  $('#downloadAll').addEventListener('click', () => {
+    if (!latestCanvas) return toast('Render first');
+    SCALES.forEach((s, i) => setTimeout(() => downloadScaled(s), i * 250));
+  });
+
+  $('#copyBtn').addEventListener('click', async () => {
+    if (!latestCanvas) return toast('Render first');
+    try {
+      const c = scaledCanvas(100);
+      const blob = await new Promise(r => c.toBlob(r, 'image/png'));
+      await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+      toast('Copied to clipboard');
+    } catch (e) { toast('Clipboard not permitted'); }
+  });
+
+  $('#clearBtn').addEventListener('click', () => {
+    codeEl.value = ''; updateCount(); latestCanvas = null; renderThumbs(); infoEl.textContent = 'idle';
+  });
+
+  $('#loadSample').addEventListener('click', () => { codeEl.value = SAMPLE; updateCount(); });
+
+  document.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') { e.preventDefault(); $('#renderBtn').click(); }
+  });
+
+  const SAMPLE = `<img src="https://pandalion.in/images/pandalion-sample-card.png" alt="Pandalion Render Room creative picnic" style="display:block;width:820px;height:auto;border-radius:28px" />`;
+
+  buildChips();
+  renderThumbs();
+  window.addEventListener('load', async () => {
+    try { await renderSourceCanvas(); renderThumbs(); } catch(e) {}
+  });
+})();
+</script>
+</body>
+</html>
