@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#120d08">
+  <title>Book Your Ticket | Krishna — Live & Unfiltered</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; padding: 16px 12px;
+      display: flex; align-items: center; justify-content: center;
+      background: radial-gradient(circle at top, #e7d8b8, #fbf7ee 68%);
+      color: #3b4b35; font-family: 'Nunito', Arial, sans-serif;
+    }
+    .booking-card {
+      width: min(100%, 300px); padding: 9px;
+      background: #fffdf7; border: 1px solid #d7c59d;
+      border-radius: 14px; box-shadow: 0 12px 32px #5b60401c;
+      text-align: center;
+    }
+    .ticket-image {
+      display: block; width: 100%; height: auto;
+      border-radius: 7px;
+    }
+    .booking-copy { padding: 10px 5px 5px; }
+    h1 {
+      margin: 0 0 6px; font-size: 16px; letter-spacing: .6px;
+      font-family: 'Fredoka', 'Nunito', Arial, sans-serif; font-weight: 600;
+    }
+    p { margin: 0 0 12px; color: #6e765f; font-size: 12px; line-height: 1.45; }
+    .book-button {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; padding: 11px 8px; border: 0; border-radius: 8px;
+      background: #f0c66e; color: #35452e; text-decoration: none;
+      font-weight: 800; font-size: 12px; letter-spacing: .7px;
+      cursor: pointer; transition: background .2s, transform .2s;
+    }
+    .book-button:hover { background: #ffdc8d; transform: translateY(-1px); }
+    .note { margin: 9px 4px 2px; font-size: 10px; color: #858b76; }
+  </style>
+</head>
+<body>
+  <main class="booking-card">
+    <!-- Save the ticket poster as assets/krishna-live-ticket.png -->
+    <img class="ticket-image"
+         src="assets/krishna-live-ticket.png"
+         alt="Krishna — Live & Unfiltered show ticket">
+    <div class="booking-copy">
+      <h1>YOUR NIGHT. YOUR TICKET.</h1>
+      <p>Ready for the show? Tap below to open a UPI app and complete your payment.</p>
+
+      <!-- Replace the UPI ID, payee name and amount before publishing. -->
+      <a class="book-button"
+         id="bookNow"
+         href="#"
+         aria-label="Book now and pay using UPI">
+        BOOK NOW <span aria-hidden="true">→</span>
+      </a>
+      <p class="note">Your UPI app will open if supported on your device. Please verify the payee and amount before paying.</p>
+    </div>
+  </main>
+
+  <script>
+    // TODO: Replace these with your real payment details.
+    const UPI_ID = "krishnapriya.nair105-3@okaxis";
+    const PAYEE_NAME = "Krishna Priya Nair";
+    const TICKET_AMOUNT = "100";
+
+    const bookButton = document.getElementById("bookNow");
+    bookButton.addEventListener("click", function (event) {
+      event.preventDefault();
+
+      if (UPI_ID === "YOUR_UPI_ID" || TICKET_AMOUNT === "YOUR_TICKET_PRICE") {
+        alert("Add your UPI ID and ticket price in this page before using Book Now.");
+        return;
+      }
+
+      const params = new URLSearchParams({
+        pa: UPI_ID,
+        pn: PAYEE_NAME,
+        am: TICKET_AMOUNT,
+        cu: "INR",
+        tn: "Krishna — Live & Unfiltered ticket"
+      });
+
+      window.location.href = "upi://pay?" + params.toString();
+    });
+  </script>
+</body>
+</html>

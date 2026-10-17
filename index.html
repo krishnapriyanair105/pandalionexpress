@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fbf7ee">
+  <meta name="description" content="Pandalion is your happy little place for delightful tools that make work easier and a lot more fun.">
+  <title>Pandalion — Relax. Have fun. Do great work.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&amp;family=Fredoka:wght@500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/cards.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+<div id="app">
+  <header id="header">
+    <div class="header-inner">
+      <a class="logo" href="#home" aria-label="Pandalion home">
+        <span class="logo-animals" aria-hidden="true"><span>🐼</span><span>🦁</span></span>
+        <span class="logo-word">Pandalion</span>
+      </a>
+      <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a class="active" href="#home">Home</a>
+        <a href="#about">About Pandalion</a>
+        <a href="#places">Our Tools</a>
+        <a href="#announcements">Announcements</a>
+        <a href="#suggestions">Write to Us</a>
+      </nav>
+      <a class="park-button" href="#" onclick="showLogin()"><span>🐾</span> Enter Pandalion Park</a>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div style="
+    align-items: center;
+" align="center">
+        <span class="eyebrow">🌿 Welcome to Pandalion</span>
+        <h1>Relax.<br>Have <em>fun.</em><br>Do great work.</h1>
+        <p>Pandalion is your happy place for delightful tools that make work easier and a lot more fun.</p>
+        <a class="walk-button" href="#places"><span>🍃</span> Take a walk around <b>→</b></a>
+      </div>
+      
+      <div class="value-strip" aria-label="Pandalion values">
+        <div><span class="value-icon bulb">♧</span><p><b>Useful tools</b><br>made simple</p></div>
+        <div><span class="value-icon heart">♡</span><p><b>Made with love,</b><br>not just code</p></div>
+        <div><span class="value-icon leaf">🍃</span><p><b>Light hearted</b><br>always</p></div>
+        <div><span class="value-icon cup">☕</span><p><b>Take breaks,</b><br>you deserve it</p></div>
+      </div>
+      <a class="scroll-hint" href="#places">Scroll to explore <span>↓</span></a>
+    </section>
+
+    <section id="places" class="places-section section-wrap">
+      <div class="section-heading">
+        <span>🌿 Our Places</span>
+        <h2>Choose where you'd like to wander.</h2>
+        <p>Every place has its own little purpose. Some help you work. Some help you create.</p>
+      </div>
+      <div class="places-grid">
+        <article class="place-card place-render">
+          <a class="place-art" href="pages/render-room/index.html"><div class="big-emoji">🏡</div>
+<span class="sparkle s1">✦</span>
+<span class="sparkle s2">✧</span></a>
+          <div class="place-body"><span class="place-tag">READY TO EXPLORE</span><h3>🏡 Render Room</h3><p>Turn HTML into beautiful images with a few clicks.</p><a class="enter-link" href="pages/render-room/index.html">Enter Render Room <span>→</span></a></div>
+        </article>
+        
+<article class="place-card" onclick="showParcel()" style="cursor:pointer;">
+  <div class="place-art parcel-art">
+    <div class="big-emoji">📦</div>
+    <span class="sparkle s1">✦</span>
+    <span class="sparkle s2">✧</span>
+  </div>
+  <div class="place-body">
+    <span class="place-tag">IN THE WORKS</span>
+    <h3>📦 Parcel House</h3>
+    <p>A little home for tracking pages, labels and thoughtful deliveries.</p>
+    <span class="coming-link">Enter Parcel House <span>→</span></span>
+  </div>
+</article>
+
+        <article class="place-card">
+          <div class="place-art lab-art"><div class="big-emoji">🧪</div><span class="sparkle s1">✦</span><span class="sparkle s2">✧</span></div>
+          <div class="place-body"><span class="place-tag">EXPERIMENT IN PROGRESS</span><h3>🧪 Tiny Lab</h3><p>Small experiments, handy helpers and curious little creations.</p><span class="coming-link">Coming down the path <span>✦</span></span></div>
+        </article>
+        <article class="place-card" id="announcements">
+          <a class="place-art announcements-art"
+   href="#"
+   onclick="event.preventDefault(); openAnnouncement();"><div class="big-emoji">📣</div>
+<span class="sparkle s1">✦</span>
+<span class="sparkle s2">✧</span></a>
+          <div class="place-body"><span class="place-tag">NEWS &amp; UPDATES</span><h3>📣 Announcements</h3><p>Little notes from Pandalion: new features, updates and what's growing next.</p><a class="enter-link" href="#announcement-note">Read the latest <span>→</span></a></div>
+        </article>
+        
+<article class="place-card" id="suggestions"
+         onclick="openSuggestionForm()" style="cursor:pointer;">
+  <div class="place-art suggestion-art">
+    <div class="big-emoji">💌</div>
+    <span class="floating-heart">♡</span>
+  </div>
+  <div class="place-body">
+    <span class="place-tag">YOUR IDEAS BELONG HERE</span>
+    <h3>💡 Suggest Box</h3>
+    <p>Have a thought, a question or a tiny idea that could make Pandalion better?</p>
+    <span class="enter-link">Write to us <span>→</span></span>
+  </div>
+</article>
+
+      </div>
+    </section>
+
+    <section id="about" class="about-section">
+      <div class="about-inner"><div class="about-characters"><img src="assets/characters/panda-idle.png" alt="A friendly panda mascot"><span>+</span><img src="assets/characters/lion-walk.png" alt="A cheerful lion mascot"></div><div><span class="eyebrow">A LITTLE PLACE WITH A BIG HEART</span><h2>Small tools.<br><em>Big smiles.</em></h2><p>Pandalion is a growing corner of the internet where useful things feel a little more human. Come in, explore, and take your time.</p><a class="walk-button" href="#places">Explore our little world <b>→</b></a></div></div>
+    </section>
+    <section id="announcement-note" class="announcement-note"><span>📣 A note from the village</span><h2>We're building this little world one place at a time.</h2><p>Render Room is open. The other places are still being lovingly prepared—check back as Pandalion grows.</p></section>
+  </main>
+  <footer id="footer"><a class="footer-brand" href="#home">🐼 🦁 Pandalion</a><p>Made with a little code, a lot of care, and room for a break.</p><a href="#home" class="back-top">Back to the top ↑</a><small>© <span id="year">2026</span> Pandalion. Made with love.</small></footer>
+</div>
+
+<section id="loginSection" class="park-login">
+  <div class="login-card">
+    <div class="login-welcome">
+      <span>🌿 A LITTLE FOREST ADVENTURE</span>
+      <h1>Hello BambooCub!<br>Ready to enter<br>the forest?</h1>
+      <p>Your little corner of Pandalion awaits.</p>
+      <button class="back-button" onclick="closeLogin()">← Back home</button>
+    </div>
+
+    <div class="login-forest">
+      <div class="forest-glow"></div>
+      <div class="login-mascots">
+        <img src="assets/characters/lion-walk.png" alt="Pandalion lion">
+        <img src="assets/characters/panda-idle.png" alt="Pandalion panda">
+      </div>
+
+      <div class="login-form">
+        <div class="login-leaf">🐾</div>
+        <h2>Welcome back!</h2>
+        <p>We've saved you a spot.</p>
+        <input id="username" type="text"
+               placeholder="Your username" autocomplete="username">
+        <input id="password" type="password"
+               placeholder="Your password" autocomplete="current-password">
+        <button class="join-button" onclick="logIn()">Enter the forest ✨</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="js/world.js"></script><script src="js/app.js"></script>
+<script>
+
+
+function showLogin() {
+  document.getElementById("loginOverlay").classList.add("open");
+}
+
+function closeLogin() {
+  document.getElementById("loginOverlay").classList.remove("open");
+}
+
+
+function showParcel() {
+  document.getElementById("parcelOverlay").classList.add("open");
+}
+
+function closeParcel() {
+  document.getElementById("parcelOverlay").classList.remove("open");
+}
+
+function trackParcel() {
+  const orderInput = document.getElementById("parcelOrderId");
+  const oldInput = document.getElementById("orderid");
+
+  if (!orderInput.value.trim()) {
+    orderInput.focus();
+    alert("Please enter your Order ID.");
+    return;
+  }
+
+  if (oldInput) {
+    oldInput.value = orderInput.value.trim();
+    closeParcel();
+    checkOrderId();
+  } else {
+    alert("Connect your existing order-tracking function first.");
+  }
+}
+
+
+
+</script>
+
+<div id="loginOverlay" class="login-overlay" onclick="if(event.target===this) closeLogin()">
+  <div class="login-popup">
+    <button class="login-close" onclick="closeLogin()" aria-label="Close">✕</button>
+
+    <div class="login-welcome">
+      <span class="login-eyebrow">🌿 WELCOME TO PANDALION</span>
+      <div class="login-emojis">🐼 🦁</div>
+      <h2>Hello, BambooCub!</h2>
+      <p>Ready to enter the forest?</p>
+      <span class="login-decoration">🍃 🐾 🌼</span>
+    </div>
+
+    <form class="login-form" onsubmit="event.preventDefault(); logIn()">
+      <span class="login-form-icon">🏡</span>
+      <h3>Your little den awaits</h3>
+      <p>Come on in!</p>
+      <input id="username" type="text" placeholder="Username"
+             autocomplete="username" required>
+      <input id="password" type="password" placeholder="Password"
+             autocomplete="current-password" required>
+      <button type="submit" class="login-join">Join the forest ✨</button>
+      <span class="login-footnote">Made with 💛 and a little magic</span>
+    </form>
+  </div>
+</div>
+
+
+<div id="parcelOverlay" class="parcel-overlay"
+     onclick="if(event.target===this) closeParcel()">
+  <div class="parcel-popup">
+    <button class="parcel-close" onclick="closeParcel()">✕</button>
+
+    <div class="parcel-welcome">
+      <span class="parcel-eyebrow">📦 A LITTLE DELIVERY ADVENTURE</span>
+      <div class="parcel-emojis">🐼 📦 🦁</div>
+      <h2>Your little parcel<br>is waiting!</h2>
+      <p>Let's find your package in the bamboo grove.</p>
+      <span class="parcel-decoration">🌿 🐾 ✉️</span>
+    </div>
+
+    <div class="parcel-forest">
+      <div class="parcel-forest-decor">🌿 📦 🍃</div>
+      <div class="parcel-form">
+        <span class="parcel-icon">🚲</span>
+        <h3>Hey, BambooCub!</h3>
+        <p>Where should we look?</p>
+        <input id="parcelOrderId" type="text"
+               placeholder="Enter your Order ID">
+        <button class="parcel-go" onclick="trackParcel()">
+          GO! →
+        </button>
+        <span class="parcel-footnote">Every parcel has a little story 💛</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="suggestionOverlay" class="suggestion-overlay"
+     onclick="if(event.target === this) closeSuggestionForm()">
+  <div class="suggestion-popup">
+    <button type="button" class="suggestion-close"
+            onclick="closeSuggestionForm()">✕</button>
+
+    <div class="suggestion-heading">
+      <span>🌿 A LITTLE NOTE TO PANDALION</span>
+      <div class="suggestion-emoji">💌 🌼</div>
+      <h2>Let's hear from you!</h2>
+      <p>Every little idea helps our world grow.</p>
+    </div>
+
+    <form id="suggestionForm" class="suggestion-form"
+          onsubmit="sendSuggestion(event)">
+      <label for="suggestionName">Your name *</label>
+      <input id="suggestionName" name="name" type="text"
+             placeholder="What should we call you?" required>
+
+      <label for="suggestionEmail">Email address *</label>
+      <input id="suggestionEmail" name="email" type="email"
+             placeholder="you@example.com" required>
+
+      <label for="suggestionContact">Contact number</label>
+      <input id="suggestionContact" name="contact" type="tel"
+             placeholder="Your phone number (optional)">
+
+      <label for="suggestionMessage">Your message *</label>
+      <textarea id="suggestionMessage" name="message"
+                placeholder="Tell us what's on your mind..."
+                rows="4" required></textarea>
+
+      <button type="submit" class="suggestion-send">
+        Send with love 💛
+      </button>
+      <p id="suggestionStatus" role="status"></p>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = "https://oeriuexkhrwzblfkozss.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9lcml1ZXhraHJ3emJsZmtvenNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQyNjAwNjQsImV4cCI6MjA3OTgzNjA2NH0.850b53ovl1lk9iXSmgV9PJmprzsCLipIqrw03kQ2cOc";
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+</script>
+<script>
+
+function openSuggestionForm() {
+  document.getElementById("suggestionOverlay").classList.add("open");
+}
+
+function closeSuggestionForm() {
+  document.getElementById("suggestionOverlay").classList.remove("open");
+}
+
+
+async function sendSuggestion(event) {
+  event.preventDefault();
+
+  const form = document.getElementById("suggestionForm");
+  const status = document.getElementById("suggestionStatus");
+  const button = form.querySelector(".suggestion-send");
+
+  if (!form.reportValidity()) return;
+
+  const name = document.getElementById("suggestionName").value.trim();
+  const email = document.getElementById("suggestionEmail").value.trim();
+  const contact = document.getElementById("suggestionContact").value.trim();
+  const message = document.getElementById("suggestionMessage").value.trim();
+
+  button.disabled = true;
+  button.textContent = "Saving your note... 💌";
+  status.textContent = "";
+
+  try {
+    const { error } = await sb
+      .from("pl_suggestions")
+      .insert({
+        Contactname: name,
+        Contactemail: email,
+        Contactmobile: contact ? Number(contact) : null,
+        Message: message
+      });
+
+    if (error) throw error;
+
+    status.textContent = "Your note is saved! Thank you 💛";
+    form.reset();
+    setTimeout(closeSuggestionForm, 1800);
+
+  } catch (error) {
+    console.error("Suggestion save error:", error);
+    status.textContent = "Couldn't save your note. Please try again.";
+  } finally {
+    button.disabled = false;
+    button.textContent = "Send with love 💛";
+  }
+}
+</script>
+
+<div id="announcementOverlay" class="announcement-overlay"
+     onclick="if(event.target === this) closeAnnouncement()">
+  <div class="announcement-popup">
+    <button class="announcement-close" onclick="closeAnnouncement()">✕</button>
+
+    <img src="assets/krishna-live-ticket.png"
+         alt="Krishna — Live & Unfiltered show ticket">
+
+    <a class="announcement-cta" href="book-ticket.html">
+  SECURE YOUR SPOT RIGHT NOW <span>→</span>
+</a>
+  </div>
+</div>
+
+<script>
+function openAnnouncement() {
+  document.getElementById("announcementOverlay").classList.add("open");
+}
+
+function closeAnnouncement() {
+  document.getElementById("announcementOverlay").classList.remove("open");
+}
+</script>
+
+</body></html>
