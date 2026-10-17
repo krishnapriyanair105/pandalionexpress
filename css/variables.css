@@ -1,0 +1,123 @@
+/* ==========================================
+   PANDALION DESIGN SYSTEM
+   ========================================== */
+
+:root{
+
+    /* ===========================
+       COLORS
+    ============================ */
+
+    --bg: #F8F7F3;
+    --surface: #FFFFFF;
+    --surface-soft: #FCFBF8;
+
+    --primary: #7FA67D;
+    --primary-dark: #658A63;
+    --primary-light: #DDEEDB;
+
+    --accent: #F2C66D;
+    --accent-soft: #FFF2CF;
+
+    --text: #2E372D;
+    --text-light: #6F786C;
+
+    --border: #ECE8DF;
+
+    --success: #76C893;
+    --warning: #F4A261;
+    --danger: #E76F51;
+
+
+    /* ===========================
+       TYPOGRAPHY
+    ============================ */
+
+    --font-heading: "Fredoka", sans-serif;
+    --font-body: "Nunito", sans-serif;
+
+
+    /* ===========================
+       FONT SIZES
+    ============================ */
+
+    --fs-xs: 12px;
+    --fs-sm: 14px;
+    --fs-md: 16px;
+    --fs-lg: 18px;
+    --fs-xl: 24px;
+    --fs-2xl: 32px;
+    --fs-3xl: 48px;
+    --fs-4xl: 64px;
+
+
+    /* ===========================
+       FONT WEIGHT
+    ============================ */
+
+    --fw-normal:400;
+    --fw-medium:500;
+    --fw-semibold:600;
+    --fw-bold:700;
+    --fw-black:800;
+
+
+    /* ===========================
+       SPACING
+    ============================ */
+
+    --space-xs:8px;
+    --space-sm:12px;
+    --space-md:18px;
+    --space-lg:28px;
+    --space-xl:40px;
+    --space-2xl:60px;
+    --space-3xl:90px;
+
+
+    /* ===========================
+       BORDER RADIUS
+    ============================ */
+
+    --radius-sm:10px;
+    --radius-md:18px;
+    --radius-lg:28px;
+    --radius-xl:40px;
+    --radius-round:999px;
+
+
+    /* ===========================
+       SHADOWS
+    ============================ */
+
+    --shadow-xs:
+        0 2px 5px rgba(0,0,0,.05);
+
+    --shadow-sm:
+        0 8px 20px rgba(0,0,0,.06);
+
+    --shadow-md:
+        0 15px 35px rgba(0,0,0,.08);
+
+    --shadow-lg:
+        0 25px 60px rgba(0,0,0,.10);
+
+
+    /* ===========================
+       TRANSITIONS
+    ============================ */
+
+    --transition-fast:.20s ease;
+
+    --transition:.35s ease;
+
+    --transition-slow:.60s ease;
+
+
+    /* ===========================
+       CONTENT WIDTH
+    ============================ */
+
+    --container:1280px;
+
+}
